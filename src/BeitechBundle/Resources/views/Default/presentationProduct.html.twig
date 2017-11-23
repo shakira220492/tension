@@ -1,0 +1,586 @@
+{{ form_start(form_amount_visits_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': id_amount_visits_form_ajax|default('form')} }) }}
+
+{{ form_end(form_amount_visits_form_ajax) }}
+
+<style>
+    div#playBannerTransitionOutside {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
+    div#playBannerTransitionInside {
+        opacity: 0;
+    }
+
+    #playBannerTransitionOutside:hover >#playBannerTransitionInside {
+        opacity: 0.7;
+        transition-property: all;
+        transition-duration: 0.5s;
+    }
+
+    div#progressBar {
+        -webkit-animation: primeraAnimacion 20s;
+        animation: primeraAnimacion 20s linear 2s infinite alternate;
+
+    }
+
+    @-webkit-keyframes primeraAnimacion{
+        0%{background-color: red;}
+        25%{background-color: yellow;}
+        50%{background-color: blue;}
+        100%{background-color: green;}
+    }
+
+    #myCanvas{
+        border: 2px dotted black;
+    }
+</style>
+    
+
+<div id="divVideo" style="background-color: white; width: 100%; height: 100%;">
+
+{#    <div id='presentation_product'>#}
+        <video id="my_video" class="productMain containment-wrapper-video" width="100%" height="98%" 
+               style="background-color: white;" {#onloadstart="playButton"#}>
+            <source src="files/justin bieber baby.mp4" type="video/mp4">
+        </video>
+{#    </div>#}
+
+    <div style="display: none;">
+    <video id="my_video2" class="productMain containment-wrapper-video" width="100%" height="98%" 
+           style="background-color: white;">
+        <source src="{{ asset('files'~'/'~'Imagine.mp4') }}" type="video/mp4">
+    </video>
+    </div>
+    
+    <div id="playBannerTransitionOutside">
+        <div id="playBannerTransitionInside" style="
+             justify-content: center;
+             display: flex;
+             transition-property: all;
+             transition-duration: 0.5s;
+             transition-delay: 0s;
+             transition-timing-function: linear;">
+
+            <canvas id="myCanvas" width="100" height="100"
+                    style="position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    visibility: hidden;">
+                Upgrade browser
+            </canvas>
+
+            <div id="playBanner" style="
+                 bottom: 20px;
+                 position: absolute;
+                 width: 400px;
+                 height: 60px;
+                 ">
+
+                {#este div me permite hacer draggable mi playBanner#}
+                <div id="playBannerBackGround" style="{#background-color: gray;#}
+                     position: absolute;
+                     top: 15px;
+                     left: 0px;
+                     width: 400px;
+                     height: 50px;
+                     background-color: #428bca;
+                     background: -webkit-linear-gradient(left, red, blue); /* For Safari 5.1 to 6.0 */
+                     background: -o-linear-gradient(red, blue); /* For Opera 11.1 to 12.0 */
+                     background: -moz-linear-gradient(red, blue); /* For Firefox 3.6 to 15 */
+                     background: linear-gradient(to right, #a6e1ec, #428bca); /* Standard syntax */
+                     ">
+                    {#este div me permite establecer un fondo semitransparente al backGround#}
+                </div>
+                <div id="playPauseButton" style="
+{#                     background-color: white; #}
+                     {#                 opacity: 0.7; #}
+                     position: absolute;
+                     top: 20px;
+                     left: 5px;
+                     width: 35px;
+                     height: 35px;
+                     ">
+                    <img src="files/images/icons/playPause.png" alt="Mountain View" style="width:30px; height:30px; opacity: 0.9;">
+                </div>
+                <div id="totalScreenButton" style="
+                     position: absolute;
+                     top: 25px;
+                     left: 45px;
+                     width: 20px;
+                     height: 20px;
+                     ">
+                    <img src="files/images/icons/totalScreen.png" alt="Mountain View" style="width:20px; height:20px; opacity: 0.9;">
+                </div>
+                
+                <div id="replayButton" style="
+                     position: absolute;
+                     top: 25px;
+                     left: 75px;
+                     width: 20px;
+                     height: 20px;
+                     ">
+                    <img src="files/images/icons/replay.png" alt="Mountain View" style="width:20px; height:20px; opacity: 0.9;">
+                </div>
+                <div id="volumeButton" style="
+                     background-color: orange;
+                     opacity: 0.4;
+                     position: absolute;
+                     top: 20px;
+                     left: 165px;
+                     width: 120px;
+                     height: 20px;
+                     ">
+                    {#volumen#}
+                    <div id="volumeButtonInside" style="
+                         background-color: white;
+                         width: 21px;
+                         height: 100%;">
+                    </div>
+                </div>
+                <div id="progressBarPosition">
+                    <div id="progressBarObject" style="
+                         position: absolute;
+                         background-color: #F5871F;
+                         width: 9px;
+                         height: 9px;
+                         top: 3px;
+                         left: 0px;
+                         overflow: auto;
+                         z-index: 2;">
+                    </div>
+                    <div id="progressBarFrame" style="
+                         {#                     opacity: 0;#}
+                         background-color: #428bca;
+                         position: absolute;
+                         top: 5px;
+                         left: 0px;
+                         width: 400px;
+                         height: 5px;
+                         z-index: 1;">
+                        <div id="progressBar" style="
+                             background-color: yellow;
+                             position: absolute;
+                             top: 0px;
+                             left: 0px;
+                             width: 4px;
+                             height: 5px;
+                             ">
+                        </div>
+                    </div>
+                    <div id="progressBarFrameUp" style="
+                         background-color: green;
+                         position: absolute;
+                         top: 0px;
+                         left: 0px;
+                         width: 400px;
+                         height: 5px;
+                         opacity: 0;
+                         ">
+                    </div>
+                    <div id="progressBarFrameDown" style="
+                         background-color: purple;
+                         position: absolute;
+                         top: 10px;
+                         left: 0px;
+                         width: 400px;
+                         height: 5px;
+                         opacity: 0;
+                         ">
+                    </div>
+                </div>
+            </div>
+        </div> {#divTransitionInside#}
+    </div> {#divTransitionOutside#}
+    
+</div> {#divVideo#}
+
+
+<script>
+    $('#playBanner').draggable({containment: ".containment-wrapper-video", scroll: false});
+    $('#volumeButtonInside').draggable({containment: "#volumeButton", scroll: false});
+</script>
+
+<script>
+
+    function amountVisits()
+    {
+        console.log("function upload keywords");
+
+        var form = $('#amount-visits-ajax');
+        var url = form.attr('action');
+
+        var id = 1;
+        var hour = "hour22";
+        var geolocalization = "geolocalization";
+
+        var geolocalization22 = navigator.geolocation.getCurrentPosition(showPosition);
+
+        var bloc = document.getElementById("bloque");
+        navigator.geolocation.getCurrentPosition(showPosition);
+        function showPosition(position)
+        {
+            bloc.innerHTML = "Latitud: " + position.coords.latitude +
+                    "<br>Longitud: " + position.coords.longitude;
+
+            alert(position.coords.latitude);
+            alert(position.coords.longitude);
+        }
+
+        console.log("g22: " + geolocalization22);
+
+        $.post(url, {id: id,
+            hour: hour,
+            geolocalization: geolocalization
+        }, function (result) {
+            console.log("id... " + result[0].id);
+            console.log("hour... " + result[0].hour);
+            console.log("geolocalization... " + result[0].geolocalization);
+            console.log("geolocalization33... " + result[0].geolocalization33);
+
+        }).fail(function () {
+            alert('ERROR');
+        });
+    }
+
+    var my_video, playbtn, seekslider, curtimetext, durtimetext, mutebtn, volumeslider, fullscreenbtn;
+
+
+
+    function intializePlayer() {
+
+    {#        video.volume = 0;#}
+
+            var myCanvas = document.getElementById("myCanvas");
+
+            if (myCanvas && myCanvas.getContext("2d"))
+            {
+                var context = myCanvas.getContext("2d");
+
+                var myVideo = document.getElementById("my_video");
+                myVideo.addEventListener("timeupdate", seektimeupdate22, false);
+
+                function seektimeupdate22()
+                {
+                    console.log("juanito alimana");
+                    myVideo.currentTime.value = 0;
+                }
+            }
+
+
+            function inLoveF() {
+
+                $("#progressBarPosition").mousemove(function (e) {
+
+                    var currentPositionProgressBarPosition = playBanner.offsetLeft;
+
+                    var currentPositionXVideo = (e.pageX - (currentPositionProgressBarPosition + 250)) - this.offsetLeft;
+
+                    if (currentPositionXVideo < 0)
+                    {
+                        currentPositionXVideo = 0;
+                    } else if (currentPositionXVideo > 400)
+                    {
+                        currentPositionXVideo = 400;
+                    }
+
+                    var idMyCanvas = document.getElementById("myCanvas");
+                    idMyCanvas.style.left = e.pageX - 50 + "px";
+                    idMyCanvas.style.top = (playBanner.offsetTop - 100) + "px";
+
+
+                    var currentPercentageVideo = (currentPositionXVideo * 100) / 400;
+                    console.log("currentPercentageVideo: " + currentPercentageVideo);
+
+                    var myVideo = document.getElementById("my_video2");
+
+                    var currentTimeVideo = (currentPercentageVideo * myVideo.duration) / 100;
+
+                    console.log("current time video... " + currentTimeVideo);
+
+                    var a = Math.round(currentTimeVideo);
+
+                    context.drawImage(myVideo, 0, 0, 100, 100);
+                    myVideo.currentTime = a;
+
+                });
+
+                //var position = progressBarObject.style.left.substring(0, 1);
+
+                //console.log("position: "+position);
+                //console.log("current position: "+progressBarObject.style.left);
+
+                //var myVideo = document.getElementById("my_video2");
+                //console.log("pain: "+myVideo.currentTime);
+
+            }
+
+    {#progressBarPosition#}
+
+            progressBarObject = document.getElementById("progressBarObject");
+
+            progressBarPosition = document.getElementById("progressBarPosition");
+            progressBarPosition.addEventListener("mouseout", invisibleCanvasF, false);
+            progressBarPosition.addEventListener("mouseover", visibleCanvasF, false);
+            var idMyCanvas = document.getElementById("myCanvas");
+
+            function invisibleCanvasF()
+            {
+                idMyCanvas.style.visibility = "hidden";
+            }
+
+            function visibleCanvasF()
+            {
+                idMyCanvas.style.visibility = "visible";
+            }
+
+            progressBarPosition.addEventListener("click", newVideoCurrentTimeF, false);
+
+            function newVideoCurrentTimeF(e)
+            {
+                
+                var progressBarPosition = document.getElementById("progressBarPosition");
+                
+                var currentPositionProgressBarPosition = playBanner.offsetLeft;
+
+                var currentPositionXVideo = (e.pageX - (currentPositionProgressBarPosition + 250)) - progressBarPosition.offsetLeft;
+
+                if (currentPositionXVideo < 0)
+                {
+                    currentPositionXVideo = 0;
+                } else if (currentPositionXVideo > 400)
+                {
+                    currentPositionXVideo = 400;
+                }
+
+                var currentPercentageVideo = (currentPositionXVideo * 100) / 400;
+                console.log("currentPercentageVideo: " + currentPercentageVideo);
+
+                var myCurrentVideo = document.getElementById("my_video");
+
+                var currentTimeVideo = (currentPercentageVideo * myCurrentVideo.duration) / 100;
+
+                console.log("current time current video... " + currentTimeVideo);
+
+                var a = Math.round(currentTimeVideo);
+
+
+
+                myCurrentVideo.currentTime = a;
+            }
+
+            progressBarFrame = document.getElementById("progressBarFrame");
+            progressBarFrame.addEventListener("mousemove", inLoveF, false);
+
+            amountVisits();
+
+            my_video = document.getElementById("my_video");
+            playPauseButton = document.getElementById("playPauseButton");
+            totalScreenButton = document.getElementById("totalScreenButton");
+            volumeButton = document.getElementById("volumeButton");
+            replayButton = document.getElementById("replayButton");
+            progressBarFrame = document.getElementById("progressBarFrame");
+            progressBar = document.getElementById("progressBar");
+
+            playPauseButton.addEventListener("click", playPauseButtonF, false);
+            totalScreenButton.addEventListener("click", totalScreenButtonF, false);
+            replayButton.addEventListener("click", replayButtonF, false);
+            volumeButton.addEventListener("click", volumeButtonF, false);
+            volumeButtonInside.addEventListener("mousedown", volumeButtonClickF, false);
+            volumeButtonInside.addEventListener("mouseup", volumeButtonWithoutClickF, false);
+
+            var estado = 0;
+
+            function volumeButtonClickF() {
+                console.log("estado puro");
+                estado = 1;
+                document.addEventListener("mousemove", volumeButtonMoveF, false);
+            }
+
+            function volumeButtonMoveF() {
+                var volumeValue = 50;
+                if (estado === 0)
+                {
+                    console.log("desactivado");
+                } else
+                {
+                    console.log(volumeButtonInside.style.left);
+
+                    if (volumeButtonInside.style.left.substring(0, 2) === "0p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "1p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "2p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "3p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "4p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "5p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "6p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "7p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "8p"
+                            || volumeButtonInside.style.left.substring(0, 2) === "9p")
+                    {
+                        volumeValue = "0" + volumeButtonInside.style.left.substring(0, 1);
+                    } else
+                    {
+                        volumeValue = volumeButtonInside.style.left.substring(0, 2);
+                    }
+
+                    my_video.volume = volumeValue / 100;
+
+                    if (volumeValue >= 00 && volumeValue <= 04)
+                    {
+                        console.log("dec 00");
+                        volumeButtonInside.style.background = "#FFFFFF";
+                    }
+                    if (volumeValue >= 05 && volumeValue <= 09)
+                    {
+                        console.log("dec 05");
+                        volumeButtonInside.style.background = "#FAFAFA";
+                    }
+                    if (volumeValue >= 10 && volumeValue <= 14)
+                    {
+                        console.log("dec 10");
+                        volumeButtonInside.style.background = "#F2F2F2";
+                    }
+                    if (volumeValue >= 15 && volumeValue <= 19)
+                    {
+                        console.log("dec 15");
+                        volumeButtonInside.style.background = "#E6E6E6";
+                    }
+                    if (volumeValue >= 20 && volumeValue <= 24)
+                    {
+                        console.log("dec 20");
+                        volumeButtonInside.style.background = "#D8D8D8";
+                    }
+                    if (volumeValue >= 25 && volumeValue <= 29)
+                    {
+                        console.log("dec 25");
+                        volumeButtonInside.style.background = "#BDBDBD";
+                    }
+                    if (volumeValue >= 30 && volumeValue <= 34)
+                    {
+                        console.log("dec 30");
+                        volumeButtonInside.style.background = "#A4A4A4";
+                    }
+                    if (volumeValue >= 35 && volumeValue <= 39)
+                    {
+                        console.log("dec 35");
+                        volumeButtonInside.style.background = "#848484";
+                    }
+                    if (volumeValue >= 40 && volumeValue <= 44)
+                    {
+                        console.log("dec 40");
+                        volumeButtonInside.style.background = "#6E6E6E";
+                    }
+                    if (volumeValue >= 45 && volumeValue <= 49)
+                    {
+                        console.log("dec 45");
+                        volumeButtonInside.style.background = "#585858";
+                    }
+                    if (volumeValue >= 50 && volumeValue <= 54)
+                    {
+                        console.log("dec 50");
+                        volumeButtonInside.style.background = "#424242";
+                    }
+                    if (volumeValue >= 55 && volumeValue <= 59)
+                    {
+                        console.log("dec 55");
+                        volumeButtonInside.style.background = "#2E2E2E";
+                    }
+                    if (volumeValue >= 60 && volumeValue <= 64)
+                    {
+                        console.log("dec 60");
+                        volumeButtonInside.style.background = "#1C1C1C";
+                    }
+                    if (volumeValue >= 65 && volumeValue <= 69)
+                    {
+                        console.log("dec 65");
+                        volumeButtonInside.style.background = "#151515";
+                    }
+                    if (volumeValue >= 70 && volumeValue <= 74)
+                    {
+                        console.log("dec 70");
+                        volumeButtonInside.style.background = "#000000";
+                    }
+                    if (volumeValue >= 75 && volumeValue <= 79)
+                    {
+                        console.log("dec 75");
+                        volumeButtonInside.style.background = "#071019";
+                    }
+                    if (volumeValue >= 80 && volumeValue <= 84)
+                    {
+                        console.log("dec 80");
+                        volumeButtonInside.style.background = "#0A1B2A";
+                    }
+                    if (volumeValue >= 85 && volumeValue <= 89)
+                    {
+                        console.log("dec 85");
+                        volumeButtonInside.style.background = "#0B243B";
+                    }
+                    if (volumeValue >= 90 && volumeValue <= 94)
+                    {
+                        console.log("dec 90");
+                        volumeButtonInside.style.background = "#0B3861";
+                    }
+                    if (volumeValue >= 95 && volumeValue <= 99)
+                    {
+                        console.log("dec 95");
+                        volumeButtonInside.style.background = "#084B8A";
+                    }
+                }
+            }
+
+            function volumeButtonWithoutClickF() {
+                estado = 0;
+            }
+
+            my_video.addEventListener("timeupdate", seektimeupdate, false);
+
+
+            function seektimeupdate() {
+                var porcentaje = my_video.currentTime * (100 / my_video.duration);
+                var currentVideo = my_video.currentTime;
+
+                console.log("porcentaje: " + porcentaje);
+                console.log("currentTime: " + currentVideo);
+
+                progressBar.style.width = porcentaje + "%";
+                progressBarObject.style.left = porcentaje + "%";
+            }
+
+            function playPauseButtonF() {
+                console.log("playPauseButtonF");
+
+                if (my_video.paused) {
+                    my_video.play();
+                } else {
+                    my_video.pause();
+                }
+            }
+
+            function totalScreenButtonF() {
+                console.log("totalScreenButtonF");
+            }
+
+            function volumeButtonF() {
+                console.log("volumeButtonF");
+            }
+
+            function replayButtonF() {
+                console.log("replayButtonF");
+            }
+
+
+
+            playbtn = document.getElementById("playpausebtn");
+            seekslider = document.getElementById("seekslider");
+            curtimetext = document.getElementById("curtimetext");
+            durtimetext = document.getElementById("durtimetext");
+            mutebtn = document.getElementById("mutebtn");
+            volumeslider = document.getElementById("volumeslider");
+            fullscreenbtn = document.getElementById("fullscreenbtn");
+        }
+        window.onload = intializePlayer();
+        
+</script>

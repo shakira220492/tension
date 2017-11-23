@@ -1,0 +1,280 @@
+<style>    
+    div#playingNow {
+        opacity: 0.5;
+    }
+
+    #playingNowContorno:hover >#playingNow {
+        opacity: 0;
+        transition-property: all;
+        transition-duration: 0.5s;
+    }
+</style>
+
+<div class="divListSongs">
+    <div style="width: 140px; 
+         height: 100px;
+         background-color: blue;">
+        <div style="position: absolute;">
+            <video id="my_video_result" class="productMain containment-wrapper" width="140px" height="100%" 
+                   style="background-color: black;" {#onloadstart="reloadVideoControls();"#}>
+                <source src="{{ asset('files'~'/'~'justin bieber baby.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+        <div id="playingNowContorno">
+            <div style="
+                 position: absolute;
+                 width: 150px;
+                 height: 100px;
+{#                 background-color: white;#}
+                 {#opacity: 0.5;#}
+                 top: 0px;
+                 left: 0px;
+                 transition-property: all;
+                 transition-duration: 0.5s;" 
+                 id="playingNow">
+            </div>
+            <div id="volumeButtonNow" style="
+                 background-color: orange;
+                 opacity: 0.4;
+                 position: absolute;
+                 top: 15px;
+                 left: 15px;
+                 width: 20px;
+                 height: 80px;
+                 ">
+                {#volumen#}
+                <div id="volumeButtonInsideNow" style="
+                     background-color: white;
+                     width: 100%;
+                     height: 21px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var playingNow = document.getElementById("playingNow");
+    var my_video_result = document.getElementById("my_video_result");
+
+
+    var volumeButtonNow = document.getElementById("volumeButtonNow");
+    var volumeButtonInsideNow = document.getElementById("volumeButtonInsideNow");
+    volumeButtonNow.addEventListener("mouseover", playingNowF, false);
+    volumeButtonInsideNow.addEventListener("mouseover", playingNowF, false);
+
+
+    playingNow.addEventListener("mouseover", playingNowF, false);
+    playingNow.addEventListener("mouseout", stoppingNowF, false);
+
+
+    function playingNowF()
+    {
+        my_video_result.play();
+    }
+    function stoppingNowF()
+    {
+        my_video_result.pause();
+    }
+    $('#volumeButtonInsideNow').draggable({containment: "#volumeButtonNow", scroll: false});
+
+    volumeButtonInsideNow.addEventListener("mousedown", volumeButtonNowClickF, false);
+    volumeButtonInsideNow.addEventListener("mouseup", volumeButtonNowWithoutClickF, false);
+
+    var estado = 0;
+
+    function volumeButtonNowClickF() {
+        console.log("estado puro");
+        estado = 1;
+        document.addEventListener("mousemove", volumeButtonNowMoveF, false);
+    }
+
+    function volumeButtonNowMoveF() {
+        var volumeValue = 50;
+        if (estado === 0)
+        {
+            console.log("desactivado");
+        } else
+        {
+            if (volumeButtonInsideNow.style.top.substring(0, 2) === "0p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "1p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "2p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "3p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "4p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "5p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "6p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "7p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "8p"
+                    || volumeButtonInsideNow.style.top.substring(0, 2) === "9p")
+            {
+                volumeValue = "0" + volumeButtonInsideNow.style.top.substring(0, 1);
+            } else
+            {
+                volumeValue = volumeButtonInsideNow.style.top.substring(0, 2);
+            }
+
+            my_video_result.volume = volumeValue / 100;
+
+        }
+    }
+
+    function volumeButtonNowWithoutClickF() {
+        estado = 0;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Search results
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <table class="tableListProduct" border="2" width="100%" height="100px" style="background-color: white;">
+                    <tr>
+                        <td>
+                            23
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Related User's products
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                Similar products about the user who has been searched
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Similar products
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                similar products with another branch
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFour">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    related kind of products
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+            <div class="panel-body">
+                main and related kind of products
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFive">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Orders
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+            <div class="panel-body">
+                All orders I've made
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingSix">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    My products
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+            <div class="panel-body">
+                All products I've registered
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingSeven">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Upload product
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+            <div class="panel-body">
+                {{ include('BeitechBundle:Default:uploadVideo.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    div.contenedor {
+        width: 80%;
+        margin: 5% auto;
+        padding: 2em;
+        background: rgb(236, 236, 236, 236);
+        box-shadow: 0px 0px 0px 8px rgba(0,0,0,.3);
+    }
+    div.ejemplo {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        background: red;
+        
+        transition-property: all;
+        transition-duration: 10s;
+        transition-delay: 0s;
+        transition-timing-function: linear;
+    }
+    
+    .contenedor:hover >.ejemplo{
+        background: black;
+        border-radius: 50%;
+        margin-left: 70%;
+    }
+</style>
+
+<div class="contenedor">
+    <div class="ejemplo">
+    </div>
+</div>#}

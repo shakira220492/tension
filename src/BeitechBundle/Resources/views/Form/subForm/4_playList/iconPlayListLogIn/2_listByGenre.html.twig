@@ -1,0 +1,159 @@
+<div id="listByGenreLogInIcon"
+     class="moreMusicClass"
+     style="{#background-color: blue;#}
+     width: 70px;
+     height: 70px;
+     position: absolute;
+     top: 0px;
+     left: 140px;"
+     onclick="highlightListByGenreLogIn();">
+    <img src="files/images/icons/genre.png" alt="Mountain View" style="width:70px; height:70px; opacity: 0.9;">
+</div>
+<script>
+    function highlightListByGenreLogIn()
+    {
+        document.getElementById('listByArtistLogInForm').style.opacity = 0;
+        document.getElementById("listByGenreLogInForm").style.opacity = 0.9;
+        document.getElementById("listByDataMiningLogInForm").style.opacity = 0;
+        document.getElementById("listByYouLogInForm").style.opacity = 0;
+        
+        document.getElementById('listByArtistLogInForm').style.zIndex = 0;
+        document.getElementById("listByGenreLogInForm").style.zIndex = 1;
+        document.getElementById("listByDataMiningLogInForm").style.zIndex = 0;
+        document.getElementById("listByYouLogInForm").style.zIndex = 0;
+        
+            var form = $('#show-videos-by-genre-form-ajax');
+
+            var url = form.attr('action');
+
+            var id_artist = 1;
+
+            $.post(url, {id_artist: id_artist
+            }, function (result) {
+
+                for (i = 0; i < result[0].amount; i++) {
+
+                        var product_id = result[i].product_id;
+                        var product_name = result[i].product_name;
+                        var product_description = result[i].product_description;
+                        var product_price = result[i].product_price;
+                        var product_image = result[i].product_image;
+                        var product_video = result[i].product_video;
+
+                        console.log(
+                                " product_id: " + i + product_id +
+                                " product_name: " + i + product_name +
+                                " product_description: " + i + product_description +
+                                " product_price: " + i + product_price +
+                                " product_image: " + i + product_image +
+                                " product_video: " + i + product_video
+                                );
+                        
+                        $("#listByGenreLogInForm_content").append(
+                            "<div "+
+                            "style='"+
+{#                            "position: relative; "+#}
+{#                            "display: inline-block; "+#}
+                            "width: 50px; "+
+                            "height: 250px; "+
+                            "background: purple; "+
+                            ""+
+                            ""+
+                            "'>"+
+                            "<div id='ByGenre"+product_id+"_"+product_name+"'"+
+                            "style='"+
+                            "position: absolute; "+
+{#                            "display: inline-block; "+#}
+                            "width: 450px; "+
+                            "height: 250px; "+
+                            "background: blue;' onmouseover='playPreVideoByGenre(\""+product_name+"\","+product_id+",\""+product_video+"\");' "+
+                            "onmouseout='pausePreVideoByGenre(\""+product_name+"\","+product_id+",\""+product_image+"\");' "+
+                            "onclick='showVideoByGenre("+product_id+");'> "+
+                            "<img src='files/" + product_image + "' alt='Mountain View' style='width:450px; height:250px; opacity: 0.9;'>"+
+                            "</div>"+
+                            "<div "+
+                            "id='space_ByGenre"+product_id+"_"+product_name+"' "+
+                            ""+
+                            ""+
+                            "style='"+
+                            "position: absolute; "+
+                            "left: 450px; "+
+{#                            "display: inline-block; "+#}
+                            "width: 100px; "+
+                            "height: 250px; "+
+                            "background: green;'>"+
+                            "</div>"+
+                            "<canvas id='canvByGenre"+product_id+"_"+product_name+"'"+
+                            "style='" +
+                            "position: absolute; "+
+                            "background: brown; "+
+                            "left: 550px; " +
+                            "width: 450px; " +
+                            "height: 250px;'>" +
+                            ""+
+                            ""+
+                            ""+
+                            ""+
+                            "</canvas>"+
+                            "</div>"
+            );
+            
+                }
+            }).fail(function () {
+                alert('ERROR');
+            });
+    }
+
+    function showVideoByGenre(product_id)
+    {
+{#        alert("showVideoByGenre");#}
+        console.log("reload Presentation Product");
+        var productId = product_id;
+        $.post("reloadPresentationProduct", {productId: productId}, function (htmlExterno) {
+            $("#divVideo").html(htmlExterno);
+        });
+        increaseAmountViewVideo(product_id);
+    }
+    
+    var activado1 = 0;
+    
+    function playPreVideoByGenre(product_name, product_id, product_video)
+    {
+{#        alert("playPreVideoByGenre");#}
+        var imageVideo1 = document.getElementById("ByGenre"+product_id+"_"+product_name);
+    
+        activado1++;
+
+        if (activado1 === 1)
+        {
+            imageVideo1.innerHTML = 
+                    "<div id='ByGenre"+product_id+"_"+product_name+"' style='background-color: blue;'>" +
+                    "<video id='video"+product_id+"_"+product_name+"' class='productMain containment-wrapper-video' height='250px' width='450px' style='background-color: white;' muted='true' autoplay='true'>" +
+                    "<source src='files/"+product_video+"' type='video/mp4'> " +
+                    "</video>" +
+                    "</div>";
+                
+            var currentVideo = "video"+product_id+"_"+product_name;
+            var currentProduct = document.getElementById(currentVideo);
+            currentProduct.playbackRate = 2.0;
+        }
+    }
+    
+    function pausePreVideoByGenre(product_name, product_id, product_image)
+    {
+{#        alert("pausePreVideoByGenre");#}
+        activado1 = 0;
+
+            var imageVideo1 = document.getElementById("ByGenre"+product_id+"_"+product_name);
+                            
+            imageVideo1.innerHTML = 
+                    "<div id='ByGenre"+product_id+"_"+product_name+"' "+
+                    "style='"+
+                    "width: 450px; "+
+                    "height: 250px; "+
+                    "background: purple;'>"+
+                    "<img src='files/"+product_image+"' alt='Mountain View' style='height: 250px; width: 450px; opacity: 0.9;'>"+
+                    "</div>";
+    }
+
+</script>

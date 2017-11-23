@@ -1,0 +1,128 @@
+<script>
+    // resize window - JAVASCRIPT
+
+    $(window).resize(function () {
+        
+        // detectar el primer cambio que se le hace a la ventana, y guardar esos valores en 
+        // porcentaje, versión relativa
+        
+        var alto = $(window).height();
+        var ancho = $(window).width();
+
+        if (ancho <= 500)
+        {
+            changeToMinimunSizeProperties();
+        } else
+        {
+            changeToMaximumSizeProperties();
+        }
+        
+        console.log("alto: " + alto + " ancho:" + ancho);
+    });
+
+    function changeToMaximumSizeProperties()
+    {
+        
+        var displaceFirstEstablished = recoverDisplaceFirstEstablished();
+        
+        console.log("MAXIMUM");
+        
+        // SEARCH ENGINE
+        document.getElementById("searchEngineId").style.width = displaceFirstEstablished + "px";
+        
+        // CATEGORIES
+        document.getElementById("categoriesId").style.width = 160 + "px";
+        
+        // PRESENTATION PRODUCT
+        document.getElementById("presentationProduct").style.right = displaceFirstEstablished + "px";
+        document.getElementById("presentationProduct").style.top = 0 + "px";
+        document.getElementById("presentationProduct").style.bottom = 0 + "px";
+        
+        // RIGHT TOOL BAR
+        document.getElementById("rightToolBar").style.right = displaceFirstEstablished + "px";
+        document.getElementById("rightToolBar").style.top = 80 + "px";
+        
+        // RIGHT FORM BAR
+        document.getElementById("rightFormBar").style.right = 160 + "px";
+        document.getElementById("rightFormBar").style.left = $(window).width()-parseInt(displaceFirstEstablished) + "px";
+        document.getElementById("rightFormBar").style.bottom = 0 + "px";
+        document.getElementById("rightFormBar").style.top = 35 + "px";
+        
+        // DISPLACE FIRST ICON
+        document.getElementById("displaceIcon").style.left = $(window).width()-parseInt(displaceFirstEstablished)-30 + "px";
+        
+    }
+
+    function changeToMinimunSizeProperties()
+    {
+        console.log("MINIMUM");
+        
+        // SEARCH ENGINE
+        document.getElementById("searchEngineId").style.width = 100 + "%";
+
+        // CATEGORIES
+        document.getElementById("categoriesId").style.width = 150 + "px";
+
+        // PRESENTATION PRODUCT
+        document.getElementById("presentationProduct").style.right = 150 + "px";
+        document.getElementById("presentationProduct").style.top = 35 + "px";
+        document.getElementById("presentationProduct").style.bottom = 200 + "px";
+{#        document.getElementById("presentationProduct").style.height = 250 + "px";#}
+
+        // RIGHT TOOL BAR
+        document.getElementById("rightToolBar").style.right = 150 + "px";
+        document.getElementById("rightToolBar").style.top = 285 + "px";
+
+        // RIGHT FORM BAR
+        document.getElementById("rightFormBar").style.right = 150 + "px";
+        document.getElementById("rightFormBar").style.left = 0 + "px";
+        document.getElementById("rightFormBar").style.height = 250 + "px";
+        document.getElementById("rightFormBar").style.top = 285 + "px";
+    }
+    
+    function recoverDisplaceFirstEstablished()
+    {
+        var displaceFirstEstablished = document.getElementById("rightToolBar").style.right;
+        
+        return displaceFirstEstablished;
+    }
+    
+    function recoverCurrentValues()
+    {
+        /*
+        // SEARCH ENGINE
+{#        document.getElementById("searchEngineId").style.width = 310 + "px";#}
+        var previousSearchEngineIdWidth = document.getElementById("searchEngineId").style.width;
+        
+        // CATEGORIES
+{#        document.getElementById("categoriesId").style.width = 160 + "px";#}
+        var previousCategoriesIdWidth = document.getElementById("categoriesId").style.width;
+        
+        // PRESENTATION PRODUCT
+        {#document.getElementById("presentationProduct").style.right = 310 + "px";
+        document.getElementById("presentationProduct").style.top = 0 + "px";
+        document.getElementById("presentationProduct").style.bottom = 0 + "px";#}
+        var previousPresentationProductRight = document.getElementById("presentationProduct").style.right;
+        var previousPresentationProductTop = document.getElementById("presentationProduct").style.top;
+        var previousPresentationProductBottom = document.getElementById("presentationProduct").style.bottom;
+        
+        
+        // RIGHT TOOL BAR
+        {#document.getElementById("rightToolBar").style.right = 310 + "px";
+        document.getElementById("rightToolBar").style.top = 80 + "px";#}
+        var previousRightToolBarRight = document.getElementById("rightToolBar").style.right;
+        var previousRightToolBarTop = document.getElementById("rightToolBar").style.top;
+        
+        
+        // RIGHT FORM BAR
+        {#document.getElementById("rightFormBar").style.right = 160 + "px";
+        document.getElementById("rightFormBar").style.left = $(window).width()-310 + "px";
+        document.getElementById("rightFormBar").style.bottom = 0 + "px";
+        document.getElementById("rightFormBar").style.top = 35 + "px";#}
+        var previousRightFormBarRight = document.getElementById("rightFormBar").style.right;
+        var previousRightFormBarLeft = document.getElementById("rightFormBar").style.left;
+        var previousRightFormBarBottom = document.getElementById("rightFormBar").style.bottom;
+        var previousRightFormBarTop = document.getElementById("rightFormBar").style.top;
+        */
+    }
+</script>

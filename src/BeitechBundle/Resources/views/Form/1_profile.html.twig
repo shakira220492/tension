@@ -1,0 +1,41 @@
+<div id="logInFormBackGround"
+     style="
+     background-color: yellow;
+     opacity: 0;
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     bottom: 0px;
+     right: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;
+     background: linear-gradient(to bottom, #313131, #222222);
+     ">
+</div>
+
+<div id="logInForm"
+     class="updateDiv"
+     style="
+     overflow: hidden;
+     opacity: 0;
+     {#    height: 100%;#}
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     right: 0px;
+     bottom: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;">
+    <div id="profileFormLogIn"
+         style="background: red;
+         display: none;">
+        {{ include('BeitechBundle:Form:subForm/1_profileFormLogIn.html.twig') }}
+    </div>
+    <div id="profileFormLogOut"
+         style="background: black;
+         display: none;">
+        {{ include('BeitechBundle:Form:subForm/1_profileFormLogOut.html.twig') }}
+    </div>
+</div>

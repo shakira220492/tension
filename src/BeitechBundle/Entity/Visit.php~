@@ -1,0 +1,39 @@
+<?php
+
+namespace BeitechBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Visit
+ *
+ * @ORM\Table(name="visit")
+ * @ORM\Entity
+ */
+class Visit
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hour", type="string", length=20, nullable=false)
+     */
+    private $hour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="geolocalization", type="string", length=50, nullable=false)
+     */
+    private $geolocalization;
+
+
+}

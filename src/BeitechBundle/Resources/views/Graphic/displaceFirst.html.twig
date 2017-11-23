@@ -1,0 +1,167 @@
+<div id="displaceIcon-wrapper"
+     style="
+     position: absolute;
+     right: 145px;
+     top: 315px;
+     left: 10px;
+     bottom: 10px;
+     z-index: 8;
+     {#background-color: blue;
+     opacity: 0.5;#}">
+</div>
+
+<div id="displaceIcon2"
+     style="
+     position: absolute;
+     {#right: 200px;#}
+     right: 160px;
+     top: 330px;
+     width: 30px;
+     height: 30px;
+     z-index: 6;
+     transition-property: all;
+     transition-duration: 0s;"
+     {#onclick="despliceToolBar();"#}>
+    <img src="files/images/icons/displace2.png" alt="Mountain View" style="width:30px; height:30px; opacity: 0.9;">
+</div>
+
+<div id="rowLeftIcon"
+     style="
+     position: absolute;
+     opacity: 0;
+     right: 60px;
+     top: 330px;
+     width: 30px;
+     height: 30px;
+     z-index: 6;">
+    <img src="files/images/icons/leftArrow.png" alt="Mountain View" style="width:30px; height:30px;">
+</div>
+
+<div id="rowRightIcon"
+     style="
+     position: absolute;
+     opacity: 0;
+     right: 0px;
+     top: 330px;
+     width: 30px;
+     height: 30px;
+     z-index: 6;">
+    <img src="files/images/icons/rightArrow.png" alt="Mountain View" style="width:30px; height:30px;">
+</div>
+
+
+<script>
+
+    function loadDisplaceLogin(e)
+    {
+        var displaceIconWrapper = document.getElementById("displaceIcon-wrapper");
+
+        displaceIconWrapper.style.left = ($(window).width() - 220) + "px";
+        displaceIconWrapper.style.bottom = ($(window).height() - 390) + "px";
+
+    }
+
+    window.onload = loadDisplaceLogin();
+
+    var icon = document.getElementById("displaceIcon2");
+    var displaceIconWrapper = document.getElementById("displaceIcon-wrapper");
+
+    document.addEventListener("mousemove", transitionDisplace, false);
+    displaceIconWrapper.addEventListener("mousedown", activateElement, false);
+    displaceIconWrapper.addEventListener("mouseup", desactivateElement, false);
+    displaceIconWrapper.addEventListener("mouseover", desactivateElement, false);
+    icon.addEventListener("mouseover", desactivateElement, false);
+
+    var buttonActivate = "0";
+
+    function activateElement()
+    {
+        buttonActivate = "1";
+
+        document.getElementById("rightFormBar").style.transitionDuration = "0s";
+        document.getElementById("presentationProduct").style.transitionDuration = "0s";
+        document.getElementById('displaceIcon2').style.transitionDuration = "0s";
+
+        document.getElementById('searchEngineId').style.transitionDuration = "0s";
+        
+        document.getElementById("rowRightIcon").style.opacity = 0.4;
+        document.getElementById('rowLeftIcon').style.opacity = 0.4;
+    }
+
+
+    function desactivateElement(e)
+    {
+        buttonActivate = "0";
+
+        var referenceLocation = document.getElementById("displaceIcon2").style.right;
+        
+        displaceIconWrapper.style.top = "320px";
+        displaceIconWrapper.style.bottom = ($(window).height() - 400) + "px";
+        
+        displaceIconWrapper.style.left = $(window).width() - (parseInt(referenceLocation) + 50 ) + "px";
+        displaceIconWrapper.style.right = parseInt(referenceLocation) - 5 + "px";
+        
+        document.getElementById("rowRightIcon").style.opacity = 0;
+        document.getElementById('rowLeftIcon').style.opacity = 0;
+    }
+    
+    function transitionDisplace(e)
+    {
+        if (buttonActivate === "1")
+        {
+            document.getElementById("displaceIcon2").style.right = $(window).width() - (e.pageX + 30) + "px";
+            
+            displaceIconWrapper.style.left = "0px";
+            displaceIconWrapper.style.right = "0px";
+            displaceIconWrapper.style.top = "0px";
+            displaceIconWrapper.style.bottom = "0px";
+        }
+    }
+
+
+    document.addEventListener("mousemove", delizeElements, false);
+
+    function delizeElements(e)
+    {
+        console.log("123456789");
+        if (buttonActivate === "0")
+        {
+                console.log("deslize desactivate");
+            } else if (buttonActivate === "1")
+            {
+                console.log("deslize activate");
+                var rightPart = $(window).width() - 160;
+
+                if (e.pageX <= 400)
+                {
+                    document.getElementById("displaceIcon2").style.right = ($(window).width() - 430) + "px";
+                    
+                    document.getElementById("presentationProduct").style.right = $(window).width() - 400 + "px";
+
+                    document.getElementById("rightFormBar").style.width = $(window).width() - (400 + 220) + "px";
+
+                    document.getElementById("searchEngineId").style.width = $(window).width() - (400 + 30) + "px";
+                } else if (e.pageX >= rightPart - 30)
+                {
+                    document.getElementById("searchEngineId").style.width = $(window).width() - (rightPart - 30) + "px";
+
+                    document.getElementById("displaceIcon2").style.right = "160px";
+                    
+                    document.getElementById("presentationProduct").style.right = $(window).width() - (rightPart - 30) + "px";
+
+                    document.getElementById("rightFormBar").style.width = $(window).width() - (rightPart - 30 + 190) + "px";
+                } else
+                {
+                    document.getElementById("presentationProduct").style.right = $(window).width() - e.pageX + "px";
+
+                    document.getElementById("rightFormBar").style.right = "190px";
+                    document.getElementById("rightFormBar").style.width = $(window).width() - (e.pageX + 220) + "px";
+
+                    document.getElementById("searchEngineId").style.width = $(window).width() - (e.pageX + 30) + "px";
+
+                    document.getElementById("rowLeftIcon").style.left = e.pageX - 30 + "px";
+                    document.getElementById("rowRightIcon").style.left = e.pageX + 30 + "px";
+                }
+            }
+        }
+</script>

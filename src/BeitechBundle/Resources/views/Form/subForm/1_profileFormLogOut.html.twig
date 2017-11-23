@@ -1,0 +1,210 @@
+<script>
+    $(function () {
+        $("#birthday").datepicker();
+    });
+</script>
+
+<div 
+    style="{#background-color: red;#}
+    width: 100%;
+    height: 100%;"
+    id="logOutDiv">
+
+    <div id="logInTab"
+         style="
+         width: 100px;
+         height: 30px;
+         left: 0px;
+         top: 30px;
+         background-color: white;
+         position: absolute;
+         opacity: 0.5;
+         transition-property: all;
+         transition-duration: 0.5s;"
+         onClick="changeLogIn();"
+         onmouseover="onTab('logInTab');"
+         onmouseout="offTab('logInTab');">
+        login 
+    </div>
+    <div 
+        id="signUpTab"
+        style="
+        width: 100px;
+        height: 30px;
+        left: 100px;
+        top: 30px;
+        background-color: white;
+        position: absolute;
+        opacity: 0.5;
+        transition-property: all;
+        transition-duration: 0.5s;"
+        onClick="changeSignUp();"
+        onmouseover="onTab('signUpTab');"
+        onmouseout="offTab('signUpTab');">
+        signup 
+    </div>
+
+    <div id="backgroundLoginTable"
+         style="position: absolute; 
+         top: 60px; 
+         left: 0px; 
+         right: 80px;
+         height: 200px; 
+         background-color: white;
+         opacity: 0.5;">
+    </div>
+    <div id="loginTable" 
+         style="position: absolute; 
+         top: 60px; 
+         left: 0px; 
+         width: 100%; 
+         height: 200px; ">
+        <input style="position: absolute; top: 10px; left: 10px;" type="text" id="user_name" name="keyword" size="17" placeholder="Username"/>
+        <input style="position: absolute; top: 40px; left: 10px;" type="password" id="password" name="keyword" size="17" placeholder="Password"/>
+        <button style="position: absolute; top: 70px; left: 10px;" type="button" class="btn btn-primary" id="buttonLogIn2" onClick="loginData();">GO</button>
+    </div>
+
+    <div hidden="true" id="signUpTable" 
+         style="position: absolute; 
+         top: 60px; 
+         left: 0px; 
+         width: 100%; 
+         height: 300px; 
+         {#background-color: yellow;#}">
+        <input style="position: absolute; top: 10px; left: 10px;" type="text" id="user_name22" name="keyword" size="17" placeholder="Username"/>
+        <input style="position: absolute; top: 40px; left: 10px;" type="text" id="first_name" name="keyword" size="17" placeholder="First name"/>
+        <input style="position: absolute; top: 70px; left: 10px;" type="text" id="last_name" name="keyword" size="17" placeholder="Last name"/>
+        <input style="position: absolute; top: 100px; left: 10px;" type="text" id="mobile_number" name="keyword" size="17" placeholder="Mobile number"/>
+        <input style="position: absolute; top: 130px; left: 10px;" type="password" id="password22" name="keyword" size="17" placeholder="Password"/>
+        <input style="position: absolute; top: 160px; left: 10px;" type="text" id="birthday" size="17" onclick="setDateBirthday();" placeholder="Birthday"/>
+        <div style="position: absolute; top: 190px; left: 10px;" class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="femaleGenre" value="option1" checked>
+                F
+            </label>
+            <label>
+                <input type="radio" name="optionsRadios" id="maleGenre" value="option2">
+                M
+            </label>
+        </div>
+        <br>
+        <button style="position: absolute; top: 230px; left: 10px;" type="button" id="buttonSignUp" class="btn btn-primary" onClick="introduceData();">GO</button>
+        <br>
+        <br>
+    </div>
+
+</div> 
+
+<script>
+    function onTab(id) {
+        document.getElementById(id).style.background = "yellow";
+    }
+
+    function offTab(id) {
+        document.getElementById(id).style.background = "gray";
+    }
+
+    function changeSignUp() {
+        console.log("changeSignUp");
+        document.getElementById('loginTable').hidden = true;
+        document.getElementById('signUpTable').hidden = false;
+    }
+
+    function changeLogIn() {
+        console.log("changeLogIn");
+        document.getElementById('signUpTable').hidden = true;
+        document.getElementById('loginTable').hidden = false;
+    }
+
+    function loginData()
+    {
+        var form = $('#login-user-data-ajax');
+        var url = form.attr('action');
+        var user_name = document.getElementById('user_name').value;
+        var password = document.getElementById('password').value;
+        var dd = document.getElementById("buttonLogIn2");
+        if (!user_name || !password) {
+            alert("You need to introduce all information");
+            dd.removeAttribute("data-dismiss");
+        } else {
+            $.post(url, {user_name: user_name, password: password}, function (data)
+            {
+                var id = data[0]['id'];
+                var userName = data[0]['userName'];
+                if (id === '0' || userName === '0')
+                {
+                    dd.removeAttribute("data-dismiss");
+                    console.log("incorrect information, you can not login");
+                } else
+                {
+                    console.log("correct information, you can login22");
+                }
+            }).fail(function () {
+                alert('ERROR');
+            });
+        }
+        checkSession();
+    }
+
+    function introduceData()
+    {
+        console.log("Introduce data");
+        var form = $('#introduce-user-data-ajax');
+        var url = form.attr('action');
+        var user_name22 = document.getElementById('user_name22').value;
+        var first_name = document.getElementById('first_name').value;
+        var last_name = document.getElementById('last_name').value;
+        var mobile_number = document.getElementById('mobile_number').value;
+        var password22 = document.getElementById('password22').value;
+        var birthday = document.getElementById('birthday').value;
+        var femaleGenre = document.getElementById('femaleGenre');
+        var maleGenre = document.getElementById('maleGenre');
+        var genre = "";
+        if (!user_name22 || !first_name || !last_name || !mobile_number || !password22 || !birthday) {
+            alert("You need to introduce all information22");
+            console.log("user_name " + user_name22);
+            console.log("first_name " + first_name);
+            console.log("last_name " + last_name);
+            console.log("mobile_number " + mobile_number);
+            console.log("password " + password22);
+            console.log("birthday " + birthday);
+            console.log("femaleGenre " + femaleGenre);
+            console.log("maleGenre " + maleGenre);
+            var d = document.getElementById("buttonSignUp");
+            d.removeAttribute("data-dismiss");
+        } else {
+
+            console.log("user_name " + user_name22);
+            console.log("first_name " + first_name);
+            console.log("last_name " + last_name);
+            console.log("mobile_number " + mobile_number);
+            console.log("password " + password22);
+            console.log("birthday " + birthday);
+            console.log("femaleGenre " + femaleGenre);
+            console.log("maleGenre " + maleGenre);
+            if (femaleGenre.checked) {
+                console.log("female");
+                genre = "f";
+            } else if (maleGenre.checked) {
+                console.log("male");
+                genre = "m";
+            }
+
+            $.post(url, {user_name: user_name22,
+                first_name: first_name,
+                last_name: last_name,
+                mobile_number: mobile_number,
+                password: password22,
+                birthday: birthday,
+                genre: genre
+            }, function (result) {
+
+            }).fail(function () {
+                alert('ERROR');
+            });
+            var d = document.getElementById("buttonSignUp");
+            d.setAttribute("data-dismiss", "modal");
+        }
+        checkSession();
+    }
+</script>

@@ -1,0 +1,154 @@
+{{ form_start(form2, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': id2|default('form')} }) }}
+
+{{ form_end(form2) }}
+
+<table width="100%" style="background-color: white;">
+    <tr>
+        <td width="86%">
+            <input type="text" id="keyword" placeholder="JBSB92" name="keyword" size="29"/>
+        <td align="right">
+            <a style="background-color: white; border-color: white;" class="btn btn-sm {#btn-success#} batpf glyphicon glyphicon-search searchVideo">
+                {# ADICIONAR TIPO PRENDA BOTON CHULITO #}
+            </a>
+        </td>
+    </tr>
+</table>
+<br>
+<div>
+    <table width="100%" border="3">
+        <tr>
+            <td colspan="3">
+                <img src="files/images/icons/yellowUpload.png" onClick="uploadVideo();" alt="Mountain View" style="width:50px;height:50px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                list recomend for the artist
+            </td>
+            <td>
+                list with similar music
+            </td>
+            <td>
+                list only with music of the artist
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <p>list with results found</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                1
+            </td>
+            <td>
+                1
+            </td>
+            <td>
+                1
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+
+
+
+
+
+
+<div class="tableListVideo">
+
+</div>
+
+<script>
+    $(".searchVideo").click(function ()
+    {
+        var keyword = document.getElementById('keyword').value;
+
+        console.log("111222333");
+        $.post("reloadListSearchVideo", {keyword: keyword}, function (htmlExterno) {
+            $(".tableListVideo").html(htmlExterno);
+        });
+        console.log(keyword);
+    });
+
+    function extraerDatos(id, name, url1, url2) {
+        var capa = document.getElementById("capa");
+
+        var h1 = document.createElement("h1");
+        h1.innerHTML = id + " <br>" + name + " <br>" + url1 + " <br>" + url2 + "";
+
+        capa.appendChild(h1);
+    }
+</script>
+
+<script>
+
+    {#    vid = document.getElementById("my_video");
+
+        vid.play();
+        playbtn.innerHTML = "Pause";#}
+
+            console.log("reactivado");
+
+            $("#enviromentJBSB92").keypress(function () {
+                console.log("<3");
+            });
+            $("#chantaje").keypress(function (e) {
+                console.log("chantaje");
+
+                document.getElementById("keyword").focus();
+
+
+                tecla = (document.all) ? e.keyCode : e.which;
+                if (tecla == 13)
+                {
+                    var keyword = document.getElementById('keyword').value;
+
+                    console.log("111222333");
+                    $.post("reloadListSearchVideo", {keyword: keyword}, function (htmlExterno) {
+                        $(".tableListVideo").html(htmlExterno);
+                    });
+                    console.log(keyword);
+                }
+
+            });
+            $("#enviromentJBSB92").keydown(function () {
+                console.log("<3<3");
+            });
+            $("#enviromentJBSB92").keyup(function () {
+                console.log("<3<3<3");
+            });
+
+            $("#enviromentJBSB92").mouseover(function () {
+
+                console.log("feel so better");
+            });
+
+    {#            $("#enviromentJBSB92").mouseover = focus();#}
+        $("#enviromentJBSB92").onload = focus();
+
+        function focus() {
+
+            console.log("feel so good");
+        }
+
+        function uploadVideo() {
+            alert("123");
+
+            var form = $('#upload-video-ajax');
+            var url = form.attr('action');
+
+            var numeroHabitacion = document.getElementById('numero_habitacion').value;
+            var capacidadHabitacion = document.getElementById('capacidad_habitacion').value;
+
+            $.post(url, {numero_habitacion: numeroHabitacion, 
+                     capacidad_habitacion: capacidadHabitacion}, function (result) {
+                
+                
+            }).fail(function () {
+                alert('ERROR');
+            });
+        }
+</script>

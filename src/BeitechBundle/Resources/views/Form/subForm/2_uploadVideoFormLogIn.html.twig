@@ -1,0 +1,303 @@
+<style>
+    input[type="file"] {
+        margin: 0 0 15px;
+        padding: 10px 1%;
+
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .principal {
+        width: 80%;
+        margin: 0 auto;
+        padding: 3% 0 6% 0;
+        clear: both;
+    }
+
+    .barra {
+        background-color: #f3f3f3;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 5px rgba(0,0,0,.2);
+        height: 25px;
+    }
+
+    .cancel {
+        background: #ed1f3c !important;
+    }
+
+    .barra_azul {
+        background-color: #247CC0;
+        border-radius: 10px;
+        display: block;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        width: 0%;
+    }
+
+    .barra_verde {
+        background-color: #2EA265 !important;
+    }
+
+    .barra_roja {
+        background-color: #DE3152 !important;
+    }
+
+    #form_subir {
+        margin: 1.5% 0;
+        padding: 2%;
+    }
+
+    span {
+        color: #ffffff;
+        font-weight: bold;
+        line-height: 25px;
+    }
+
+    #barra_estado {
+        font-weight: bold;
+        line-height: 25px;
+        transition-property: all;
+        transition-duration: 0.5s;
+    }
+
+    div#barra_estado {
+        -webkit-animation: barra_estadoAnimacion 20s;
+        animation: primeraAnimacion 20s linear 2s infinite alternate;
+
+    }
+
+    @-webkit-keyframes barra_estadoAnimacion{
+        0%{background-color: white;}
+        25%{background-color: gray;}
+        50%{background-color: blue;}
+        100%{background-color: gray;}
+    }
+</style>
+
+<form id="updateVideo">
+        <div style="display:none;"  style="
+             position: absolute;
+             top: 10px;
+             left: 350px;">
+            <p>id</p><input type="text" id="user_id_login" name="user_id_login" {#disabled="true"#}/>
+            <p>username</p><input type="text" id="user_username_login" name="user_username_login" {#disabled="true"#}/>
+        </div>
+        
+        <label style="
+               position: absolute;
+               top: 10px; 
+               left: 0px;">PRODUCT NAME</label>
+        <input style="
+               position: absolute;
+               top: 10px;
+               left: 200px;" 
+               type="text" id="product_name" name="product_name" size="17" placeholder="Product name"/>
+        
+        <label style="
+               position: absolute;
+               top: 40px;
+               left: 0px;">PRODUCT DESCRIPTION</label>
+        <input style="
+               position: absolute;
+               top: 40px;
+               left: 200px;" type="text" id="product_description" name="product_description" size="17" placeholder="Product description"/>
+        
+        <label style="
+               position: absolute;
+               top: 70px;
+               left: 0px;">PRODUCT PRICE</label>
+        <input style="
+               position: absolute;
+               top: 70px;
+               left: 200px;" type="text" id="product_price" name="product_price" size="17" placeholder="Product price"/>
+
+        <label style="
+               position: absolute;
+               top: 110px;
+               left: 0px;">PRODUCT VIDEO</label>
+        <input type="file" name="product_video" id="product_video"
+               style="
+               position: absolute;
+               top: 130px;
+               left: 0px;" />
+        
+        <label style="
+               position: absolute;
+               top: 180px;
+               left: 0px;">PRODUCT IMAGE</label>
+        <input type="file" name="product_image" id="product_image" 
+               style="
+               position: absolute;
+               top: 200px;
+               left: 0px;" />
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="barra">
+            <div class="barra_azul" id="barra_estado">
+                <span id="span_estado"></span>
+            </div>
+        </div>
+
+
+    </form>
+    <div id="updateKeywords" style="
+         position: absolute;
+         top: 260px;
+         left: 0px;
+         background-color: yellow;
+         width: 100%;
+         height: 30px;">
+
+        {{ include('BeitechBundle:Form:addKeywords.html.twig') }}
+    </div>
+
+
+
+    <button style="
+            position: absolute;
+            top: 390px;
+            left: 0px;" type="button" class="btn btn-primary" id="buttonUploadProduct" onClick="updateProduct(), uploadProduct();">UPLOAD</button>
+
+
+    {#<button style="
+            position: absolute;
+            top: 190px;
+            left: 300px;" type="button" class="btn btn-primary" id="buttonUploadVideo" onClick=";">
+        UPLOAD video
+    </button>#}
+
+
+<div hidden="true"
+     style="
+     {#display: none;#}
+     background-color: green;
+     position: absolute;
+     width: 250px;
+     {#height: 100%;#}
+     top: 10px;
+     bottom: 0px;"
+     id="logInDiv">
+
+</div> {#fin tercer div#}  
+
+
+<script>
+
+    function uploadProduct()
+    {
+        var form = $('#upload-product-ajax');
+        var url = form.attr('action');
+
+        var video = document.getElementById("product_video").files[0];
+        var image = document.getElementById("product_image").files[0];
+
+        var formdata = new FormData();
+        formdata.append("product_video", video);
+        formdata.append("product_image", image);
+
+        var ajax = new XMLHttpRequest();
+
+        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax.addEventListener("load", completeHandler, false);
+        ajax.addEventListener("error", errorHandler, false);
+        ajax.addEventListener("abort", abortHandler, false);
+        ajax.open("POST", url);
+        ajax.send(formdata);
+    }
+
+    function progressHandler(event)
+    {
+    {#console.log("___Cargando");
+    _("loaded_n_total").innerHTML = "Upload "+event.loaded+" bytes of "+event.total;
+    var percent = (event.loaded / event.total) * 100;
+    _("progressBar").value = Math.round(percent);
+    _("status").innerHTML = Math.round(percent)+"% uploaded... please wait";#}
+            var porcentaje = Math.round((event.loaded / event.total) * 100);
+            console.log(porcentaje);
+            barra_estado.style.width = porcentaje + "%";
+        }
+
+        function completeHandler(event)
+        {
+    {#_("status").innerHTML = event.target.responseText;
+    _("progressBar").value = 0;#}
+        }
+
+        function errorHandler(event)
+        {
+    {#_("status").innerHTML = "Upload Failed";#}
+        }
+
+        function abortHandler(event)
+        {
+    {#_("status").innerHTML = "Upload Aborted";#}
+        }
+
+        function updateProduct()
+        {
+            console.log("function updateProduct");
+            var form = $('#update-product-ajax');
+            var url = form.attr('action');
+            product_name = document.getElementById('product_name').value;
+            product_description = document.getElementById('product_description').value;
+            product_price = document.getElementById('product_price').value;
+            product_video = document.getElementById('product_video').value;
+            product_image = document.getElementById('product_image').value;
+            user_id = document.getElementById('user_id_login').value;
+            user_username = document.getElementById('user_username_login').value;
+
+            alert("user_id: " + user_id + "user_username: " + user_username);
+
+            if (!product_name || !product_description || !product_price || !product_image || !product_video) {
+                alert("You need to introduce all information");
+            } else {
+
+                var formData = new FormData($("#updateVideo")[0]);
+                var a = 2;
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false
+                }).done(function (resp) {
+                    console.log("product_id" + resp[0].product_id);
+                    console.log("product_name" + resp[0].product_name);
+                    console.log("product_description" + resp[0].product_description);
+                    console.log("product_price" + resp[0].product_price);
+                    console.log("product_video" + resp[0].product_video);
+                    console.log("product_image" + resp[0].product_image);
+                    uploadKeywords(resp[0].product_id);
+                });
+
+                var d = document.getElementById("buttonUploadProduct");
+                d.setAttribute("data-dismiss", "modal");
+            }
+        }
+
+        function subir_archivos(form) {
+            var barra_estado = document.getElementById("barra_estado");
+            var span_estado = document.getElementById("span_estado");
+    {#        var botom_cancelar #}
+
+    {#        let barra_estado = form.children[1].children[0],
+                span = barra_estado.children[0],
+                botom_cancelar = form.children[2].children[0];#}
+
+                        barra_estado.classList.remove('barra_verde', 'barra_roja');
+
+                        //peticion
+                        let peticion = new XMLHttpRequest();
+
+                        //progreso
+                        peticion.upload.addEventListener("progress", (event) => {
+                            let porcentaje = Math.round((event.loaded / event.total) * 100);
+
+                            console.log(porcentaje);
+                        });
+                    }
+</script>

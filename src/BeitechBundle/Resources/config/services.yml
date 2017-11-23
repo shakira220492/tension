@@ -1,0 +1,4 @@
+services:
+#    beitech.example:
+#        class: BeitechBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

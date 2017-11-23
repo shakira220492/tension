@@ -1,0 +1,25 @@
+<div id="listByYouLogInIcon"
+     class="moreMusicClass"
+     style="{#background-color: purple;#}
+     width: 70px;
+     height: 70px;
+     position: absolute;
+     top: 0px;
+     left: 0px;"
+     onclick="highlightListByYouLogIn();">
+    <img src="files/images/icons/more.png" alt="Mountain View" style="width:70px; height:70px; opacity: 0.9;">
+</div>
+<script>
+    function highlightListByYouLogIn()
+    {
+        document.getElementById('listByArtistLogInForm').style.opacity = 0;
+        document.getElementById("listByGenreLogInForm").style.opacity = 0;
+        document.getElementById("listByDataMiningLogInForm").style.opacity = 0;
+        document.getElementById("listByYouLogInForm").style.opacity = 0.9;
+        
+        document.getElementById('listByArtistLogInForm').style.zIndex = 0;
+        document.getElementById("listByGenreLogInForm").style.zIndex = 0;
+        document.getElementById("listByDataMiningLogInForm").style.zIndex = 0;
+        document.getElementById("listByYouLogInForm").style.zIndex = 1;
+    }
+</script>

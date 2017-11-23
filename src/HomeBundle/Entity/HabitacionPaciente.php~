@@ -1,0 +1,66 @@
+<?php
+
+namespace HomeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * HabitacionPaciente
+ *
+ * @ORM\Table(name="habitacion_paciente", indexes={@ORM\Index(name="IDX_6A6FEBC3B009290D", columns={"habitacion_id"}), @ORM\Index(name="IDX_6A6FEBC37310DAD4", columns={"paciente_id"})})
+ * @ORM\Entity
+ */
+class HabitacionPaciente
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaRegistro", type="datetime", nullable=true)
+     */
+    private $fecharegistro;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaIngreso", type="datetime", nullable=true)
+     */
+    private $fechaingreso;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaSalida", type="datetime", nullable=true)
+     */
+    private $fechasalida;
+
+    /**
+     * @var \Paciente
+     *
+     * @ORM\ManyToOne(targetEntity="Paciente")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="paciente_id", referencedColumnName="id")
+     * })
+     */
+    private $paciente;
+
+    /**
+     * @var \Habitacion
+     *
+     * @ORM\ManyToOne(targetEntity="Habitacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="habitacion_id", referencedColumnName="id")
+     * })
+     */
+    private $habitacion;
+
+
+}

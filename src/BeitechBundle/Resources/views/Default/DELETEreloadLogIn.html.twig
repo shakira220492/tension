@@ -1,0 +1,30 @@
+<div class="updateDiv">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">LOG IN</h4>
+    </div>
+    <div {#class="modal-body"#} {#style="background-color: red;"#}>
+        <table border="0" width="100%">
+            <tr>
+                <td>Email
+                <td align="right"><input type="text" id="keyword" name="keyword" size="27"/>
+            </tr>
+            <tr>
+                <td>Password
+                <td align="right"><input type="password" id="keyword" name="keyword" size="27"/>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <table border="0" width="100%">
+            <tr>
+                <td align="left">
+                    <button type="button" class="btn btn-default btn-sign-up" {#style="visibility: hidden;"#} onClick="changeSignUp();">SIGN UP</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onClick="loginData();">GO</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

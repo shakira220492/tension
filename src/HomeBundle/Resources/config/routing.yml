@@ -1,0 +1,35 @@
+home_homepage:
+    path:     /
+    defaults: { _controller: HomeBundle:Default:index }
+    
+index:
+    resource: "routes/index.yml"
+    prefix:   /index
+            
+administration:
+    resource: "routes/administration.yml"
+    prefix:   /administration
+    
+information_aboutPHP:
+    path:     /phpInfo
+    defaults: { _controller: HomeBundle:Default:phpInfo }
+    
+temporal_list_operation:
+    path:     /temporal_list_operation
+    defaults: { _controller: HomeBundle:Default:temporalListOperation }
+    methods: POST
+    
+reloadListSearchVideo:
+    path:     /reloadListSearchVideo
+    defaults: { _controller: HomeBundle:Default:reloadListSearchVideo }
+    methods: POST
+    
+reloadPresentationVideo:
+    path:     /reloadPresentationVideo
+    defaults: { _controller: HomeBundle:Default:reloadPresentationVideo }
+    methods: POST
+    
+uploadVideo:
+    path:     /uploadVideo
+    defaults: { _controller: HomeBundle:Index:uploadVideo }
+    methods: POST

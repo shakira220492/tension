@@ -1,0 +1,44 @@
+<div id="informationFormBackGround"
+     style="
+     background-color: purple;
+     opacity: 0;
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     bottom: 0px;
+     right: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;
+     {#     background: linear-gradient(to bottom, #313131, #222222);#}
+     ">
+</div>
+
+<div id='informationForm'
+     style="
+     overflow: hidden;
+     opacity: 0;
+     position: absolute;
+     {#background-color: purple;#}
+     {#height: 100%;#}
+     top: 0px;
+     bottom: 0px;
+     left: 0px;
+     right: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;
+     overflow-y: scroll;">
+    
+    <div id="informationFormLogIn"
+         style="background: red;
+                display: none;">
+        {{ include('BeitechBundle:Form:subForm/6_informationFormLogIn.html.twig') }}
+    </div>
+    <div id="informationFormLogOut"
+         style="background: black;
+                display: none;">
+        {{ include('BeitechBundle:Form:subForm/6_informationFormLogOut.html.twig') }}
+    </div>
+    
+</div>

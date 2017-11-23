@@ -1,0 +1,22 @@
+<table border="2" width="100%" height="100px" style="background-color: brown;"{#class="tableListVideo"#}>
+    {% for videos in video %}
+        <tr height="100px">
+            <td>
+                {{ videos.id }}
+                {{ videos.name }}
+                {{ videos.url1 }}
+                {{ videos.url2 }}        
+            </td>
+            <td>
+{#                <a class="boton_link" onClick="twentyThree({{videos.id}}, '{{videos.name}}', '{{videos.url1}}', '{{videos.url2}}');">{{ videos.name }}</a>#}
+                {#<img src="{{ asset(videoUrl1~'/'~videoUrl2) }}" alt="Mountain View" style="width:304px;height:228px;">#}
+                <img src="files/images/video1.png" onClick="twentyThree({{videos.id}}, '{{videos.name}}', '{{videos.url1}}', '{{videos.url2}}');" alt="Mountain View" style="width:100%;height:10%;">
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+{#    <video id="my_video" width="550" height="320" onloadstart="hello();">
+        <source src="{{ asset(videoUrl1~'/'~videoUrl2) }}" type="video/mp4">
+    </video>#}

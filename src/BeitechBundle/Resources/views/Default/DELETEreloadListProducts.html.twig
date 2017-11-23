@@ -1,0 +1,42 @@
+<table border="2" width="100%" height="100px" style="background-color: brown; table-layout:fixed;">
+        <tr>
+            <td>
+                <p>ID</p>
+            </td>
+            <td>
+                <p>AMOUNT</p>
+            </td>
+            <td>
+                <p>NAME</p>
+            </td>
+            <td>
+                <p>PRICE</p>
+            </td>
+        </tr>
+    {% for setlists in setlist %}
+        <tr height="10px">
+            <td>
+                <p>{{ setlists.id }}</p>
+            </td>
+            <td>
+                <p>{{ setlists.amountProduct }}</p>
+            </td>
+            <td>
+                <p>{{ setlists.name }}</p>
+            </td>
+            <td>
+                <p>{{ setlists.price }}</p>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<table>
+    <tr>
+        <td>
+            TOTAL
+        </td>
+        <td>
+            (PENDIENTE terminar)
+        </td>
+    </tr>
+</table>

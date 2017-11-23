@@ -1,0 +1,225 @@
+{#<video width="100%" height="100%" controls>
+    <source src="{{ asset(videos[0]['video_url1']~videos[0]['video_url2']) }}" type="video/mp4">
+</video>#}
+
+{#<video class="videoMain" width="320" height="240" controls>
+  <source src="{{ asset('files/justin bieber baby.mp4') }}" type="video/mp4">
+</video>#}
+
+{#<div class="videoMain">
+    <video id="my_video" width="550" height="320" controls>
+        <source src="{{ asset('files/justin bieber baby.mp4') }}" type="video/mp4">
+    </video>
+</div>
+    
+    <div id="video_controls_bar">
+        <button id="playpausebtn">Pause</button>
+    </div>#}
+
+<div id="video_player_box" style="background-color: white; width: 100%; height: 100%;">
+    <div class="videoMain" 
+         style="background-color: #0000F0; 
+         position: absolute; 
+         width: 100%;
+         top: 0px;">
+        <video id="my_video" width="100%" height="100%">
+            <source src="{{ asset('files/justin bieber baby.mp4') }}" type="video/mp4">
+        </video>
+        <div style="background-color: #0088cc;
+             position: absolute;
+             opacity: 0.8;">
+            <p>vbdfhjvbdfhjbvdfhjbvhjdfbvhjdfbvhdfj</p>
+        </div>
+        <div id="video_controls_bar" 
+             style="position: absolute;
+             {#right: 0px;#}
+             left: 0px;
+             {#bottom: 0px;#}">
+            <div id="video_controls_bar_interno">
+                <table width="100%" border="0">
+                    <tr>
+                        <td colspan="5">
+                            <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
+                        </td>
+                        <td rowspan="2">
+                            <img src="files/images/icons/yellowHeart.png" alt="Mountain View" style="width:50px; height:50px; opacity: 0.9;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="files/images/icons/yellowPlayPause.png" id="playpausebtn" style="width:30px;height:30px;opacity: 0.9;">
+{#                            <button class = "glyphicon glyphicon-play" id="playpausebtn">{#Pause#}</button>#}
+                        </td>
+                        <td>
+                            <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
+                        </td>
+                        <td>
+                            <img src="files/images/icons/yellowVolume.png" id="mutebtn" style="width:30px;height:30px;opacity: 0.9;">
+                            {#<button class = "glyphicon glyphicon-volume-up" id="mutebtn"></button>#}
+                        </td>
+                        <td>                            
+                            <input id="volumeslider" type="range" min="0" max="100" value="100" step="1">
+                        </td>
+                        <td>
+                            <button id="fullscreenbtn">[ &nbsp; ]</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $("#video_controls_bar").draggable();
+    });
+</script>
+
+<style>
+    #seekslider{ width: 100%; }
+    #playpausebtn{ {#background-color: #333; border: 0px;#} }
+    #curtimetext{}
+    #mutebtn{ {#background-color: #333; border: 0px; #}}
+    #volumeslider{ width: 100%; }
+    #fullscreenbtn{ background-color: #333; border: 0px; }
+
+    div#video_player_box{ {#opacity: 0.9;#} width: 550px; background: #000; margin: 0px auto; }
+    div#video_controls_bar{ opacity: 0.9; {#background: hotpink;#} padding: 0px; color:#ccc; 
+
+                            background: -webkit-linear-gradient(white, black); /* For Safari 5.1 to 6.0 */
+                            background: -o-linear-gradient(white, black); /* For Opera 11.1 to 12.0 */
+                            background: -moz-linear-gradient(white, black); /* For Firefox 3.6 to 15 */
+                            background: linear-gradient(white, black); /* Standard syntax */
+    }
+    div#video_controls_bar_interno{ opacity: 0.5; 
+                                    background: -webkit-linear-gradient(left top, black , darkgoldenrod); /* For Safari 5.1 to 6.0 */
+                                    background: -o-linear-gradient(bottom right, black , darkgoldenrod); /* For Opera 11.1 to 12.0 */
+                                    background: -moz-linear-gradient(bottom right, black , darkgoldenrod); /* For Firefox 3.6 to 15 */
+                                    background: linear-gradient(to bottom right, black , darkgoldenrod); /* Standard syntax */
+    }
+</style>
+
+<script>
+    function twentyThree(VideoId, VideoName, VideoUrl1, VideoUrl2) {
+        var videoId = VideoId;
+        var videoName = VideoName;
+        var videoUrl1 = VideoUrl1;
+        var videoUrl2 = VideoUrl2;
+
+        console.log("guepale" + videoName);
+
+        $.post("reloadPresentationVideo", {videoId: videoId, videoName: videoName, videoUrl1: videoUrl1, videoUrl2: videoUrl2}, function (htmlExterno) {
+            $(".videoMain").html(htmlExterno);
+        });
+
+        console.log("guepale 2" + videoUrl2);
+
+    }
+</script>
+
+<script>
+
+    var vid, playbtn, seekslider, curtimetext, durtimetext, mutebtn, volumeslider, fullscreenbtn;
+
+    function intializePlayer() {
+        vid = document.getElementById("my_video");
+        playbtn = document.getElementById("playpausebtn");
+        seekslider = document.getElementById("seekslider");
+        curtimetext = document.getElementById("curtimetext");
+        durtimetext = document.getElementById("durtimetext");
+        mutebtn = document.getElementById("mutebtn");
+        volumeslider = document.getElementById("volumeslider");
+        fullscreenbtn = document.getElementById("fullscreenbtn");
+
+        playbtn.addEventListener("click", playPause, false);
+        seekslider.addEventListener("change", vidSeek, false);
+        vid.addEventListener("timeupdate", seektimeupdate, false);
+        mutebtn.addEventListener("click", vidmute, false);
+        volumeslider.addEventListener("change", setvolume, false);
+        fullscreenbtn.addEventListener("click", toggleFullScreen, false);
+    }
+
+    window.onload = intializePlayer;
+
+    function playPause() {
+        vid = document.getElementById("my_video");
+        playbtn = document.getElementById("playpausebtn");
+        seekslider = document.getElementById("seekslider");
+        curtimetext = document.getElementById("curtimetext");
+        durtimetext = document.getElementById("durtimetext");
+        mutebtn = document.getElementById("mutebtn");
+        volumeslider = document.getElementById("volumeslider");
+        fullscreenbtn = document.getElementById("fullscreenbtn");
+
+    {#class = "glyphicon glyphicon-play"#}
+
+    {#document.getElementById("MyElement").className = "MyClass";
+    #}
+
+            if (vid.paused) {
+                vid.play();
+    {#            playbtn.innerHTML = "Pause";#}
+                playbtn.className = "glyphicon glyphicon-pause";
+            } else {
+                vid.pause();
+    {#            playbtn.innerHTML = "Play";#}
+                playbtn.className = "glyphicon glyphicon-play";
+            }
+        }
+
+        function vidSeek() {
+            var seekto = vid.duration * (seekslider.value / 100);
+            vid.currentTime = seekto;
+        }
+
+        function seektimeupdate() {
+            var nt = vid.currentTime * (100 / vid.duration);
+            seekslider.value = nt;
+            var curmins = Math.floor(vid.currentTime / 60);
+            var cursecs = Math.floor(vid.currentTime - curmins * 60);
+            var durmins = Math.floor(vid.duration / 60);
+            var dursecs = Math.round(vid.duration - durmins * 60);
+            if (cursecs < 10) {
+                cursecs = "0" + cursecs;
+            }
+            if (dursecs < 10) {
+                dursecs = "0" + dursecs;
+            }
+            if (curmins < 10) {
+                curmins = "0" + curmins;
+            }
+            if (durmins < 10) {
+                durmins = "0" + durmins;
+            }
+            curtimetext.innerHTML = curmins + ":" + cursecs;
+            durtimetext.innerHTML = durmins + ":" + dursecs;
+        }
+
+        function vidmute() {
+            if (vid.muted) {
+                vid.muted = false;
+    {#            mutebtn.innerHTML = "Mute";#}
+                mutebtn.className = "glyphicon glyphicon-volume-up";
+            } else {
+                vid.muted = true;
+    {#            mutebtn.innerHTML = "Unmute";#}
+                mutebtn.className = "glyphicon glyphicon-volume-off";
+            }
+        }
+
+        function setvolume() {
+            vid.volume = volumeslider.value / 100;
+        }
+
+        function toggleFullScreen() {
+            if (vid.requestFullScreen) {
+                vid.requestFullScreen();
+            } else if (vid.webkitRequestFullScreen) {
+                vid.webkitRequestFullScreen();
+            } else if (vid.mozRequestFullScreen) {
+                vid.mozRequestFullScreen();
+            }
+        }
+</script>

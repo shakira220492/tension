@@ -1,0 +1,25 @@
+<div id="listByDataMiningLogOutIcon"
+     class="moreMusicClass"
+     style="background-color: red;
+     width: 70px;
+     height: 70px;
+     position: absolute;
+     top: 0px;
+     left: 210px;"
+     onclick="highlightListByDataMiningLogOut();">
+    LIST BY DATAMINING
+</div>
+<script>
+    function highlightListByDataMiningLogOut()
+    {
+        document.getElementById('listByArtistLogOutForm').style.opacity = 0;
+        document.getElementById("listByGenreLogOutForm").style.opacity = 0;
+        document.getElementById("listByDataMiningLogOutForm").style.opacity = 0.9;
+        document.getElementById("listByYouLogOutForm").style.opacity = 0;
+        
+        document.getElementById('listByArtistLogOutForm').style.zIndex = 0;
+        document.getElementById("listByGenreLogOutForm").style.zIndex = 0;
+        document.getElementById("listByDataMiningLogOutForm").style.zIndex = 1;
+        document.getElementById("listByYouLogOutForm").style.zIndex = 0;
+    }
+</script>

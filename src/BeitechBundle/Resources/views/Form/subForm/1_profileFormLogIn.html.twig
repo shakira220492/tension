@@ -1,0 +1,37 @@
+<div id="logOutButton"
+     style="
+     position: absolute;
+     background-color: red;
+     width: 150px;
+     height: 30px;
+     right: 0px;
+     top: 0px;"
+     onClick="logOut();">
+    CERRAR SESION
+</div>
+<script>
+
+    function logOut()
+    {
+        var form = $('#logout-user-data-form-ajax');
+        var url = form.attr('action');
+
+        $.post(url, function (data)
+        {
+            {#alert(" dirección IP " + data[0].id);
+            alert(" dirección IP " + data[0].userName);
+
+            $users2 = array();
+                    $users2[] = array(
+                    'id' => $geolocalization33,
+                    'userName' => $geolocalization33
+                    );#}
+
+        }).fail(function () {
+            alert('ERROR');
+        });
+
+        checkSession();
+
+    }
+</script>

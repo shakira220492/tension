@@ -1,0 +1,90 @@
+<div>
+    <div>
+        {{ include('BeitechBundle:Form:subForm/4_playList/menuLogIn.html.twig') }}
+    </div>
+    <div>
+        {{ include('BeitechBundle:Form:subForm/4_playList/formLogIn.html.twig') }}
+    </div>
+</div>
+
+
+
+
+
+{#<div style="background-color: yellow;
+ width: 100%;
+ height: 100px;
+ position: absolute;
+ top: 50px;
+ left: 0px;
+ ">
+<div id="moreMusic"
+     class="moreMusicClass"
+     style="background-color: green;
+     width: 35px;
+     height: 35px;
+     position: absolute;
+     top: 100px;
+     left: 180px;"
+     onclick="requestMoreVideos(), zoomSizeListByArtist();">
+    +
+</div>
+{{ include('BeitechBundle:Form:subForm/4_playList/formPlayList/1_listByArtist.html.twig') }}
+</div>
+<div style="background-color: blue;
+ width: 100%;
+ height: 100px;
+ position: absolute;
+ top: 350px;
+ left: 0px;
+ ">
+{{ include('BeitechBundle:Form:subForm/4_playList/formPlayList/2_listByGenre.html.twig') }}
+</div>
+<div style="background-color: red;
+ width: 100%;
+ height: 100px;
+ position: absolute;
+ top: 500px;
+ left: 0px;
+ ">
+{{ include('BeitechBundle:Form:subForm/4_playList/formPlayList/3_listByDataMining.html.twig') }}
+</div>
+<div style="background-color: purple;
+ width: 100%;
+ height: 100px;
+ position: absolute;
+ top: 650px;
+ left: 0px;
+ ">
+{{ include('BeitechBundle:Form:subForm/4_playList/formPlayList/4_listByYou.html.twig') }}
+</div>
+
+<script>
+$(".moreMusicClass").click(function ()
+{
+    alert("ATENTTION!");
+
+    var artistId = "1";
+    var segment = "shakira";
+    var genre = "pop";
+    var user = "user";
+
+    var keyword = document.getElementById('keyword').value;
+
+    $.post("list/reloadListByArtist", {artistId: artistId}, function (htmlExterno) {
+        $(".listByArtistDiv").html(htmlExterno);
+    });
+
+    $.post("list/reloadListByDataMining", {segment: segment}, function (htmlExterno) {
+        $(".listByDataMiningDiv").html(htmlExterno);
+    });
+
+    $.post("list/reloadListByGenre", {genre: genre}, function (htmlExterno) {
+        $(".listByGenreDiv").html(htmlExterno);
+    });
+
+    $.post("list/reloadListByYou", {user: user}, function (htmlExterno) {
+        $(".listByYouDiv").html(htmlExterno);
+    });
+});
+</script>#}

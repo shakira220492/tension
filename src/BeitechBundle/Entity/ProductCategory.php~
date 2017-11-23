@@ -1,0 +1,45 @@
+<?php
+
+namespace BeitechBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ProductCategory
+ *
+ * @ORM\Table(name="product_category", indexes={@ORM\Index(name="id_product", columns={"id_product"}), @ORM\Index(name="id_category", columns={"id_category"})})
+ * @ORM\Entity
+ */
+class ProductCategory
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_product", type="integer", nullable=false)
+     */
+    private $idProduct;
+
+    /**
+     * @var \Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     * })
+     */
+    private $idCategory;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
+     */
+    private $id;
+
+
+}

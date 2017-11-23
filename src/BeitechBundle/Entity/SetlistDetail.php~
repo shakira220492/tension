@@ -1,0 +1,52 @@
+<?php
+
+namespace BeitechBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SetlistDetail
+ *
+ * @ORM\Table(name="setlist_detail", indexes={@ORM\Index(name="id_product", columns={"id_product"}), @ORM\Index(name="id_list", columns={"id_setlist"})})
+ * @ORM\Entity
+ */
+class SetlistDetail
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="amount_product", type="integer", nullable=false)
+     */
+    private $amountProduct;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+     * })
+     */
+    private $idProduct;
+
+    /**
+     * @var \Setlist
+     *
+     * @ORM\ManyToOne(targetEntity="Setlist")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_setlist", referencedColumnName="id")
+     * })
+     */
+    private $idSetlist;
+
+
+}

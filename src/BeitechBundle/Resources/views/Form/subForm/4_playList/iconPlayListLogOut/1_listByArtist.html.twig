@@ -1,0 +1,27 @@
+<div id="listByArtistLogOutIcon"
+     style="background-color: yellow;
+     width: 70px;
+     height: 70px;
+     position: absolute;
+     top: 0px;
+     left: 70px;
+{#     z-index: 9;#}
+     "
+     onclick="highlightListByArtistLogOut();">
+    LIST BY ARTIST
+</div>
+
+<script>
+    function highlightListByArtistLogOut()
+    {
+        document.getElementById('listByArtistLogOutForm').style.opacity = 0.9;
+        document.getElementById("listByGenreLogOutForm").style.opacity = 0;
+        document.getElementById("listByDataMiningLogOutForm").style.opacity = 0;
+        document.getElementById("listByYouLogOutForm").style.opacity = 0;
+        
+        document.getElementById('listByArtistLogOutForm').style.zIndex = 1;
+        document.getElementById("listByGenreLogOutForm").style.zIndex = 0;
+        document.getElementById("listByDataMiningLogOutForm").style.zIndex = 0;
+        document.getElementById("listByYouLogOutForm").style.zIndex = 0;
+    }
+</script>

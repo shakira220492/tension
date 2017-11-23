@@ -1,0 +1,45 @@
+<div id="addToListFormBackGround"
+     style="
+     background-color: red;
+     opacity: 0;
+     position: absolute;
+     top: 0px;
+     bottom: 0px;
+     left: 0px;
+     right: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;
+          background: linear-gradient(to bottom, #313131, #222222);
+     ">
+</div>
+
+<div id='addToListForm' 
+     style="
+     overflow: hidden;
+     opacity: 0;
+     position: absolute;
+     {#background-color: purple;#}
+     {#width: 100%;
+     height: 100%;#}
+     top: 0px;
+     bottom: 0px;
+     left: 0px;
+     right: 0px;
+     z-index: 1;
+     transition-property: all;
+     transition-duration: 0.5s;
+     overflow-y: scroll;">
+
+    <div id="addToListFormLogIn"
+         style="background: red;
+         display: none;">
+        {{ include('BeitechBundle:Form:subForm/4_addToListFormLogIn.html.twig') }}
+    </div>
+    <div id="addToListFormLogOut"
+         style="background: black;
+         display: none;">
+        {{ include('BeitechBundle:Form:subForm/4_addToListFormLogOut.html.twig') }}
+    </div>
+    
+</div>

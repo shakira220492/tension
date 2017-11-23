@@ -1,0 +1,85 @@
+{% for setlists in setlist %}
+    <div class="reloadListOrdersDiv">
+        <div class="panel-group" id="orderAccordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOrderOne{{ setlists.id }}">
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <a style="background-color: white; border-color: white;" class="btn btn-sm batpf glyphicon glyphicon-ok" onclick="selectRadioButton({{ setlists.id }});">
+                                    {# ADD PRODUCT TO SETLIST #}
+                                </a>    
+                            </td>
+                            <td width="100%">
+                                <input type="text" class="form-control" aria-label="..." placeholder="{{ setlists.id }}-{{ setlists.deliveryAddress }}" disabled="true">
+                            </td>
+                            <td align="right">
+                                <a style="background-color: white; border-color: white;" class="btn btn-sm batpf glyphicon glyphicon-edit">
+                                    {# EDIT SETLIST #}
+                                </a>
+                            </td>
+                            <td>
+                                <a role="button" data-toggle="collapse" data-parent="#orderAccordion" href="#collapseOrderOne{{ setlists.id }}" aria-expanded="true" aria-controls="collapseOrderOne{{ setlists.id }}"
+                                   style="background-color: white; border-color: white;"
+                                   class="btn btn-sm batpf glyphicon glyphicon-resize-full"
+                                   onclick="reloadListProduct({{ setlists.id }})">
+                                    {# SEE ALL INFORMATION #}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="collapseOrderOne{{ setlists.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOrderOne{{ setlists.id }}">
+                    <div class="panel-body">
+                        <table class="tableListProduct2204" border="2" width="100%" height="100px" style="background-color: brown;">
+                            <tr>
+                                <td>
+                                    here we put the list of products 22
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+<script>
+    function selectRadioButton(IdSetlist) {
+        console.log("add product to order");
+
+        var form = $('#add-product-setlist-ajax');
+        var url = form.attr('action');
+
+        var delivery_address = document.getElementById('delivery_address').value;
+
+        var user_id = document.getElementById('user_id_login').innerHTML;
+
+        var id_product = document.getElementById('productIdTXT').innerHTML;
+        var amount_product = document.getElementById('amount_product').value;
+        var id_setlist = IdSetlist;
+
+        if (!amount_product)
+        {
+            alert('you need to introduce an amount');
+        } else
+        {
+            $.post(url, {id_product: id_product,
+                amount_product: amount_product,
+                id_setlist: id_setlist
+            }, function (result) {
+
+            console.log("farr "+result[0].setlistDetail_id);
+            console.log("farr "+result[0].setlistDetail_idProduct);
+            console.log("farr "+result[0].setlistDetail_amountProduct);
+            console.log("farr "+result[0].setlistDetail_idSetlist);
+
+            console.log("contador: " +result[0].contador);
+
+            }).fail(function () {
+                alert('ERROR');
+            });
+        }
+    }
+</script>

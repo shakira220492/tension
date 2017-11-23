@@ -1,0 +1,19 @@
+reloadListByArtist:
+    path:     /reloadListByArtist
+    defaults: { _controller: BeitechBundle:Default:reloadListByArtist }
+    methods:  POST
+    
+reloadListByGenre:
+    path:     /reloadListByGenre
+    defaults: { _controller: BeitechBundle:Default:reloadListByGenre }
+    methods:  POST
+    
+reloadListByDataMining:
+    path:     /reloadListByDataMining
+    defaults: { _controller: BeitechBundle:Default:reloadListByDataMining }
+    methods:  POST
+    
+reloadListByYou:
+    path:     /reloadListByYou
+    defaults: { _controller: BeitechBundle:Default:reloadListByYou }
+    methods:  POST

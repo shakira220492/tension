@@ -1,0 +1,134 @@
+beitech_homepage:
+    path:     /beitech
+    defaults: { _controller: BeitechBundle:Default:index }
+
+reloadLogIn:
+    path:     /reloadLogIn
+    defaults: { _controller: BeitechBundle:Default:reloadLogIn }
+    
+reloadSignUp:
+    path:     /reloadSignUp
+    defaults: { _controller: BeitechBundle:Default:reloadSignUp }
+    
+introduce_user_data_form:
+    path:     /introduce_user_data_form
+    defaults: { _controller: BeitechBundle:Default:introduceUserDataForm }
+    methods:  POST
+    
+login_user_data_form:
+    path:     /login_user_data_form
+    defaults: { _controller: BeitechBundle:Default:loginUserDataForm }
+    methods:  POST
+    
+logout_user_data_form:
+    path:     /logout_user_data_form
+    defaults: { _controller: BeitechBundle:Default:logoutUserDataForm }
+    methods:  POST
+    
+upload_product_form:
+    path:     /upload_product_form
+    defaults: { _controller: BeitechBundle:Default:uploadProductForm }
+    methods:  POST
+    
+update_product_form:
+    path:     /update_product_form
+    defaults: { _controller: BeitechBundle:Default:updateProductForm }
+    methods:  POST
+    
+reloadListSearchProduct:
+    path:     /reloadListSearchProduct
+    defaults: { _controller: BeitechBundle:Default:reloadListSearchProduct }
+    methods:  POST
+    
+reloadPresentationProduct:
+    path:     /reloadPresentationProduct
+    defaults: { _controller: BeitechBundle:Default:reloadPresentationProduct }
+    methods:  POST
+    
+upload_availability_form:
+    path:     /upload_availability_form
+    defaults: { _controller: BeitechBundle:Default:uploadAvailabilityForm }
+    methods:  POST
+    
+introduce_setlist_data_form:
+    path:     /introduce_setlist_data_form
+    defaults: { _controller: BeitechBundle:Default:introduceSetlistDataForm }
+    methods:  POST
+    
+reloadListOrders:
+    path:     /reloadListOrders
+    defaults: { _controller: BeitechBundle:Default:reloadListOrders }
+    methods:  POST
+    
+add_product_setlist_form:
+    path:     /add_product_setlist_form
+    defaults: { _controller: BeitechBundle:Default:addProductSetlistForm }
+    methods:  POST
+
+reloadListProducts:
+    path:     /reloadListProducts
+    defaults: { _controller: BeitechBundle:Default:reloadListProducts }
+    methods:  POST
+    
+upload_keywords_form:
+    path:     /upload_keywords_form
+    defaults: { _controller: BeitechBundle:Default:uploadKeywordsForm }
+    methods:  POST
+    
+upload_video:
+    path:     /upload_video
+    defaults: { _controller: BeitechBundle:Default:uploadVideo }
+    methods:  POST
+    
+amount_visits_form:
+    path:     /amount_visits_form
+    defaults: { _controller: BeitechBundle:Default:amountVisitsForm }
+    methods:  POST
+    
+increase_amount_view_video_form:
+    path:     /increase_amount_view_video_form
+    defaults: { _controller: BeitechBundle:Default:increaseAmountViewVideoForm }
+    methods:  POST
+    
+marketing_and_publicity_form:
+    path:     /marketing_and_publicity_form
+    defaults: { _controller: BeitechBundle:Default:marketingAndPublicityForm }
+    methods:  POST
+    
+check_sesion_form:
+    path:     /check_sesion_form
+    defaults: { _controller: BeitechBundle:Default:checkSesionForm }
+    methods:  POST
+    
+show_videos_by_artist_form:
+    path:     /show_videos_by_artist_form
+    defaults: { _controller: BeitechBundle:Default:showVideosByArtistForm }
+    methods:  POST
+    
+show_videos_by_data_mining_form:
+    path:     /show_videos_by_data_mining_form
+    defaults: { _controller: BeitechBundle:Default:showVideosByDataMiningForm }
+    methods:  POST
+    
+show_videos_by_genre_form:
+    path:     /show_videos_by_genre_form
+    defaults: { _controller: BeitechBundle:Default:showVideosByGenreForm }
+    methods:  POST
+    
+#beitech_user_login:
+#    path:     /beitech_login
+#    defaults: { _controller: BeitechBundle:Security:login }
+#
+#beitech_user_login_check:
+#    path:     /beitech_login_check
+#    defaults: { _controller: BeitechBundle:Security:loginCheck }
+#    
+#beitech_logout:
+#    path:     /beitech_logout
+
+
+
+
+list:
+    resource: "routes/list.yml"
+    prefix:   /list

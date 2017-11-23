@@ -1,0 +1,257 @@
+{% for products in product %}
+    <style>    
+        div#playingNow{{products.id}} {
+            opacity: 0.5;
+        }
+
+        #playingNowContorno{{products.id}}:hover >#playingNow{{products.id}} {
+            opacity: 0;
+            transition-property: all;
+            transition-duration: 0.5s;
+        }
+    </style>
+{% endfor %}
+
+<div class="divListSongs" class="bookStore">
+    
+    <style onload="loadDocument();">
+
+    </style>
+
+    {% for products in product %}
+        <div style="
+             position: relative;
+             width: 250px; 
+             height: 150px;
+             background-color: blue;"
+             id="divProduct{{products.id}}"
+             class="modulo bookStore22">
+            <video id="my_video_result{{products.id}}" class="productMain containment-wrapper" width="100%" height="100%" 
+                   style="background-color: black; position: absolute;
+                   top: 0px;
+                   left: 0px;" 
+                   onClick="viewProduct({{products.id}});">
+                <source src="{{ asset('files'~'/'~products.video) }}" type="video/mp4">
+            </video>
+            <div id="playingNowContorno{{products.id}}" 
+                 data-id2 = "{{ products.id }}"
+                 class="playingNowContornoClass">
+                <div style="
+                     position: absolute;
+                     width: 100px;
+                     height: 150px;
+                     background-color: white;
+                     top: 0px;
+                     left: 0px;
+                     transition-property: all;
+                     transition-duration: 0.5s;" 
+                     id="playingNow{{products.id}}">
+                </div>
+                <div id="volumeButtonNow{{products.id}}" class="volumeButtonNowClass" style="
+                     background-color: orange;
+                     opacity: 0.4;
+                     position: absolute;
+                     top: 15px;
+                     left: 15px;
+                     width: 20px;
+                     height: 120px;
+                     ">
+                    {#volumen#}
+                    <div id="volumeButtonInsideNow{{products.id}}" 
+                         class="volumeButtonInsideNowClass" 
+                         data-id3 = "{{ products.id }}"
+                         style="
+                         position: absolute;
+                         background-color: white;
+                         width: 100%;
+                         height: 21px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    function loadDocument() {
+        console.log("Document is loaded");
+
+        $(".playingNowContornoClass").mouseover(function () {
+            console.log("eeeeee");
+            var idProduct = $(this).data('id2');
+
+            var idVideo = "my_video_result" + idProduct;
+
+            var my_video_result = document.getElementById(idVideo);
+            my_video_result.play();
+
+            $('#volumeButtonInsideNow' + idProduct).draggable({containment: "#volumeButtonNow" + idProduct, scroll: false});
+        });
+
+        $(".playingNowContornoClass").mouseout(function () {
+            console.log("jjjjjjj");
+            var idProduct = $(this).data('id2');
+
+            var idVideo = "my_video_result" + idProduct;
+
+            var my_video_result = document.getElementById(idVideo);
+            my_video_result.pause();
+
+        });
+
+        var estado = 0;
+        $(".volumeButtonInsideNowClass").mousedown(function () {
+            var idProduct = $(this).data('id3');
+
+            var idVolume = "volumeButtonInsideNow" + idProduct;
+
+            var volumeButtonInsideNow = document.getElementById(idVolume);
+
+            estado = 1;
+            document.addEventListener("mousemove", volumeButtonNowMoveF, false);
+
+            function volumeButtonNowMoveF() {
+                var volumeValue = 50;
+                if (estado === 0)
+                {
+                    console.log("desactivado");
+                } else
+                {
+                    if (volumeButtonInsideNow.style.top.substring(0, 2) === "0p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "1p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "2p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "3p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "4p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "5p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "6p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "7p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "8p"
+                            || volumeButtonInsideNow.style.top.substring(0, 2) === "9p")
+                    {
+                        console.log("option1");
+                        volumeValue = "0" + volumeButtonInsideNow.style.top.substring(0, 1);
+                    } else
+                    {
+                        console.log("option2");
+                        volumeValue = volumeButtonInsideNow.style.top.substring(0, 2);
+                    }
+
+                    var idVideo = "my_video_result" + idProduct;
+                    var my_video_result = document.getElementById(idVideo);
+
+                    my_video_result.volume = volumeValue / 100;
+                }
+            }
+        });
+
+        $(".volumeButtonInsideNowClass").mouseup(function () {
+            estado = 0;
+        });
+
+    }
+
+    function viewProduct(ProductId) {
+        console.log("reload Presentation Product");
+        var productId = ProductId;
+        $.post("reloadPresentationProduct", {productId: productId}, function (htmlExterno) {
+            $("#divVideo").html(htmlExterno);
+        });
+        increaseAmountViewVideo(ProductId);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+{#<table border="2" width="100%" height="100px" style="background-color: brown; table-layout:fixed;">
+    {% for products in product %}
+        <tr height="10px">
+            <td width='80%'>
+                <p id="productId{{ products.id }}" style="display: none;">{{ products.id }}</p>
+                <p id="productName{{ products.id }}" style="display: none;">{{ products.name }}</p>
+                <p id="productDescription{{ products.id }}">{{ products.description }}</p>
+                <p id="productPrice{{ products.id }}" style="display: none;">{{ products.price }}</p>
+            </td>
+            <td>
+                <button data-id="{{products.id}}" type="button" class="btn btn-primary btn-open-orders{{products.id}}" data-toggle="modal" 
+                        onclick='openOrderRequest({{products.id}});'>LI</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2'>
+                <img src="files/images/video1.png" onClick="viewProduct({{products.id}}, {{products.price}});" alt="Mountain View" style="width:100%;height:10%;">
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+<div class="modal fade bs-orders" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document" style="width: 400px;">
+        <div class="modal-content">
+            <div class="logInDiv">
+
+                <div class="updateDiv">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalTitleId">ORDER LISTS </h4>
+                        {{ include('BeitechBundle:Default:listOrders.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function amor()
+    {
+    alert("amor123");
+    }
+
+    function viewProduct(ProductId, ProductPrice) {
+    alert("reload Presentation Product");
+    var productId = ProductId;
+    var productPrice = ProductPrice;
+    $.post("reloadPresentationProduct", {productId: productId, productPrice: productPrice}, function (htmlExterno) {
+    $("#divVideo").html(htmlExterno);
+    });
+    increaseAmountViewVideo(ProductId);
+    }
+
+    function openOrderRequest(Id) {
+    console.log(Id);
+    $('button.btn-open-orders' + Id).attr('id', 'btn-open-order' + Id);
+    var status = document.getElementById("user_id_login").innerHTML;
+    var d = document.getElementById("btn-open-order" + Id);
+    if (status === "id")
+    {
+    console.log("SE TIENE QUE LOGUEAR");
+    d.setAttribute("data-target", ".bs-example-modal-lg");
+    } else
+    {
+    console.log("YA SE ENCUENTRA LOGUEADO");
+    d.setAttribute("data-target", ".bs-orders");
+    reloadModal(Id);
+    reloadListOrders();
+    }
+    }
+
+    function reloadModal(Id) {
+    var productId = document.getElementById('productId' + Id).innerHTML;
+    var productName = document.getElementById('productName' + Id).innerHTML;
+    var productDescription = document.getElementById('productDescription' + Id).innerHTML;
+    var productPrice = document.getElementById('productPrice' + Id).innerHTML;
+    document.getElementById('productIdTXT').innerHTML = productId;
+    document.getElementById('productNameTXT').innerHTML = productName;
+    document.getElementById('productDescriptionTXT').innerHTML = productDescription;
+    document.getElementById('productPriceTXT').innerHTML = productPrice;
+    }
+</script>#}

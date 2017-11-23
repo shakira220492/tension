@@ -1,0 +1,11 @@
+beitech:
+    resource: "@BeitechBundle/Resources/config/routing.yml"
+    prefix:   /
+
+home:
+    resource: "@HomeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

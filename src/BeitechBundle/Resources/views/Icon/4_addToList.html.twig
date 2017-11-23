@@ -1,0 +1,141 @@
+<div id="addToListIcon"
+     style="
+     position: absolute;
+     opacity: 0.4;
+     {#background-color: red;#}
+     right: 0px;
+     top: 180px;
+     width: 30px;
+     height: 30px;
+     transition-property: all;
+     transition-duration: 0.5s;"
+     onclick="displaceAddToListForm(), validateAddToListForm();">
+    <img src="files/images/icons/add to list.png" alt="Mountain View" style="width:30px; height:30px; opacity: 0.9;">
+</div>
+
+<script>
+    function validateAddToListForm() {
+        var form = $('#check-sesion-ajax');
+        var url = form.attr('action');
+
+        $.post(url, function (data)
+        {
+            var sessionStatus = data[0].sessionStatus;
+
+            if (sessionStatus === "0")
+            {
+                console.log("4_NO se encuentra logueado");
+                highlightAddToListForm();
+            } else
+            {
+                console.log("4_se encuentra logueado");
+                highlightAddToListForm();
+            }
+
+        }).fail(function () {
+            alert('ERROR');
+        });
+    }
+
+    function displaceAddToListForm() {
+        if (parseInt(document.getElementById('addToListIcon').style.opacity) === 1)
+        {
+            document.getElementById('addToListIcon').style.opacity = 0.4;
+            document.getElementById('donateToThisArtistIcon').style.opacity = 0.4;
+            document.getElementById('logInIcon').style.opacity = 0.4;
+            document.getElementById('uploadVideoIcon').style.opacity = 0.4;
+            document.getElementById('marketingAndPublicityIcon').style.opacity = 0.4;
+            document.getElementById('informationIcon').style.opacity = 0.4;
+            document.getElementById('commentIcon').style.opacity = 0.4;
+            document.getElementById('newsFeedIcon').style.opacity = 0.4;
+
+            document.getElementById('rightFormBar').style.transitionDuration = "0.5s";
+            document.getElementById('rightFormBar').style.right = "190px";
+            document.getElementById('rightFormBar').style.width = "0px";
+            document.getElementById('searchEngineId').style.transitionDuration = "0.5s";
+            document.getElementById("searchEngineId").style.width = "190px";
+            document.getElementById('presentationProduct').style.transitionDuration = "0.5s";
+            document.getElementById('presentationProduct').style.right = "190px";
+            document.getElementById('displaceIcon2').style.transitionDuration = "0.5s";
+            document.getElementById('displaceIcon2').style.right = "160px";
+        } else
+        {
+            document.getElementById('addToListIcon').style.opacity = 1;
+            document.getElementById('donateToThisArtistIcon').style.opacity = 0.4;
+            document.getElementById('logInIcon').style.opacity = 0.4;
+            document.getElementById('uploadVideoIcon').style.opacity = 0.4;
+            document.getElementById('marketingAndPublicityIcon').style.opacity = 0.4;
+            document.getElementById('informationIcon').style.opacity = 0.4;
+            document.getElementById('commentIcon').style.opacity = 0.4;
+            document.getElementById('newsFeedIcon').style.opacity = 0.4;
+
+            document.getElementById('rightFormBar').style.transitionDuration = "0.5s";
+            document.getElementById('rightFormBar').style.right = "190px";
+            document.getElementById('rightFormBar').style.width = "370px";
+            document.getElementById('searchEngineId').style.transitionDuration = "0.5s";
+            document.getElementById("searchEngineId").style.width = "560px";
+            document.getElementById('presentationProduct').style.transitionDuration = "0.5s";
+            document.getElementById('presentationProduct').style.right = "590px";
+            document.getElementById('displaceIcon2').style.transitionDuration = "0.5s";
+            document.getElementById('displaceIcon2').style.right = "560px";
+        }
+    }
+
+    function highlightAddToListForm()
+    {
+        {#document.getElementById('logInForm').style.display = "none";
+        document.getElementById('uploadVideoForm').style.display = "none";
+        document.getElementById('donateToThisArtistForm').style.display = "none";
+        document.getElementById('addToListForm').style.display = "block";
+        document.getElementById('marketingAndPublicityForm').style.display = "none";
+        document.getElementById('informationForm').style.display = "none";
+        document.getElementById('commentForm').style.display = "none";
+        document.getElementById('newsFeedForm').style.display = "none";
+
+        document.getElementById('logInFormBackGround').style.display = "none";
+        document.getElementById('uploadVideoFormBackGround').style.display = "none";
+        document.getElementById('donateToThisArtistFormBackGround').style.display = "none";
+        document.getElementById('addToListFormBackGround').style.display = "block";
+        document.getElementById('marketingAndPublicityFormBackGround').style.display = "none";
+        document.getElementById('informationFormBackGround').style.display = "none";
+        document.getElementById('commentFormBackGround').style.display = "none";
+        document.getElementById('newsFeedFormBackGround').style.display = "none";#}
+
+        /////////////////////////////////////////////////////////////////////
+        document.getElementById('addToListForm').style.zIndex = 2;
+        document.getElementById('donateToThisArtistForm').style.zIndex = 1;
+        document.getElementById('logInForm').style.zIndex = 1;
+        document.getElementById('uploadVideoForm').style.zIndex = 1;
+        document.getElementById('marketingAndPublicityForm').style.zIndex = 1;
+        document.getElementById('informationForm').style.zIndex = 1;
+        document.getElementById('commentForm').style.zIndex = 1;
+        document.getElementById('newsFeedForm').style.zIndex = 1;
+
+        document.getElementById('addToListFormBackGround').style.zIndex = 2;
+        document.getElementById('donateToThisArtistFormBackGround').style.zIndex = 1;
+        document.getElementById('logInFormBackGround').style.zIndex = 1;
+        document.getElementById('uploadVideoFormBackGround').style.zIndex = 1;
+        document.getElementById('marketingAndPublicityFormBackGround').style.zIndex = 1;
+        document.getElementById('informationFormBackGround').style.zIndex = 1;
+        document.getElementById('commentFormBackGround').style.zIndex = 1;
+        document.getElementById('newsFeedFormBackGround').style.zIndex = 1;
+
+        document.getElementById('addToListForm').style.opacity = 1;
+        document.getElementById('donateToThisArtistForm').style.opacity = 0;
+        document.getElementById('logInForm').style.opacity = 0;
+        document.getElementById('uploadVideoForm').style.opacity = 0;
+        document.getElementById('marketingAndPublicityForm').style.opacity = 0;
+        document.getElementById('informationForm').style.opacity = 0;
+        document.getElementById('commentForm').style.opacity = 0;
+        document.getElementById('newsFeedForm').style.opacity = 0;
+
+        document.getElementById('addToListFormBackGround').style.opacity = 0.1;
+        document.getElementById('donateToThisArtistFormBackGround').style.opacity = 0;
+        document.getElementById('logInFormBackGround').style.opacity = 0;
+        document.getElementById('uploadVideoFormBackGround').style.opacity = 0;
+        document.getElementById('marketingAndPublicityFormBackGround').style.opacity = 0;
+        document.getElementById('informationFormBackGround').style.opacity = 0;
+        document.getElementById('commentFormBackGround').style.opacity = 0;
+        document.getElementById('newsFeedFormBackGround').style.opacity = 0;
+    }
+</script>

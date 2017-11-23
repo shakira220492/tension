@@ -1,0 +1,22 @@
+
+
+<!-- Large modal -->
+
+
+{#configurar las siguientes opciones#}
+
+{#transition-property: all;
+transition-duration: 0.5s;#}
+
+<script>
+    function uploadAvailability() {
+        console.log("upload availability");
+        var form = $('#upload-availability-ajax');
+        var url = form.attr('action');
+        $.post(url, function (result) {
+
+        }).fail(function () {
+            alert('ERROR');
+        });
+    }
+</script>

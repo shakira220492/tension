@@ -1,0 +1,263 @@
+{% extends '::layout.html.twig' %}
+{% block body %}
+    {{ parent() }}
+
+    <style>
+
+
+        div#categoriesIdFrame {
+            top: 0px;
+            left: 0px;
+            background-color: pink;
+            width: 35px;
+            height: 35px;
+        }
+
+        div#categoriesId {
+            z-index: 1;
+        }
+
+        div#categoriesId {
+            top: 35px;
+            background-color: red;
+        }
+
+        div#searchEngineId {
+            top: 0px;
+            background-color: red;
+        }
+    </style>
+
+    <body id="chantaje" style="background-color: white; width: 100%; height: 100%;">
+
+        {{ form_start(check_sesion_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'check-sesion-ajax'|default('form')} }) }}
+
+        {{ form_end(check_sesion_form_ajax) }}
+
+
+        {{ include('BeitechBundle:Graphic:displaceFirst.html.twig') }}
+        {{ include('BeitechBundle:Graphic:resizeWindow.html.twig') }}
+
+
+        <div id='presentationProduct'
+             style="background-color: green; 
+             {#            height: 100%;#}
+             position: absolute;
+             right: 190px;
+             left: 0px;
+             top: 0px;
+             bottom: 0px;
+             {#overflow-y: scroll;#}">
+            {{ include('BeitechBundle:Default:presentationProduct.html.twig', {
+                    form_amount_visits_form_ajax: amount_visits_form_ajax,
+                    id_amount_visits_form_ajax: 'amount-visits-ajax'
+            }) }}
+        </div>
+
+        <div
+            id="searchEngineId"
+            style="background-color: greenyellow; 
+            height: 35px; 
+            width: 190px; 
+            {#                top: 0px;#}
+            right: 0px;
+            position: absolute;">
+            {{ include('BeitechBundle:Default:searchEngine.html.twig', {
+                            form_increase_amount_view_video_form_ajax: increase_amount_view_video_form_ajax,
+                            id_increase_amount_view_video_form_ajax: 'increase-amount-view-video-ajax'
+                        }) }}
+        </div>
+
+        <div
+            id="categoriesId"
+            style="
+            overflow: hidden;
+            {#             display: none;#}
+            background-color: white; 
+            position: absolute;
+            {#             height: 50%; #}
+            width: 160px; 
+            {#             top: 35px;#}
+            right: 0px;
+            bottom: 30px;
+            {#overflow-y: scroll;#}">
+            {{ include('BeitechBundle:Default:categories.html.twig') }}
+        </div>
+
+        <div id='rightToolBar'
+             style="{#background-color: brown;#}
+             position: absolute;
+             right: 160px;
+             width: 30px;
+             top: 35px;
+             bottom: 0px;
+             z-index: 4;">
+            {{ include('BeitechBundle:Default:rightToolBar.html.twig') }}
+        </div>
+
+        <div id='rightFormBar'
+             style='{#background-color: red;#}
+             {#opacity: 0.5;#}
+             position: absolute;
+             right: 190px;
+             width: 0px;
+             top: 35px;
+             bottom: 0px;
+             transition-property: all;
+             transition-duration: 0s;'>
+            {{ include('BeitechBundle:Default:rightFormBar.html.twig', {
+                    form1: introduce_user_data_form_ajax,
+                    id1: 'introduce-user-data-ajax',
+                    form2: login_user_data_form_ajax,
+                    id2: 'login-user-data-ajax',
+                    form3: upload_product_form_ajax,
+                    id3: 'upload-product-ajax',
+                    form4: introduce_setlist_data_form_ajax,
+                    id4: 'introduce-setlist-data-ajax',
+                    form5: add_product_setlist_form_ajax,
+                    id5: 'add-product-setlist-ajax',
+                    form6: upload_keywords_form_ajax,
+                    id6: 'upload-keywords-ajax',
+                    form7: update_product_form_ajax,
+                    id7: 'update-product-ajax',
+                    form8: marketing_and_publicity_form_ajax,
+                    id8: 'marketing-and-publicity-ajax',
+                    form9: logout_user_data_form_ajax,
+                    id9: 'logout-user-data-form-ajax',
+                    form10: show_videos_by_artist_form_ajax,
+                    id10: 'show-videos-by-artist-form-ajax',
+                    form11: show_videos_by_genre_form_ajax,
+                    id11: 'show-videos-by-genre-form-ajax',
+                    form12: show_videos_by_data_mining_form_ajax,
+                    id12: 'show-videos-by-data-mining-form-ajax'
+            }) }}
+        </div>
+
+        {#<div id="logInForm" 
+             style="
+             width: 0px;
+             top: 0px;
+             right: 0px;
+             bottom: 0px;
+             z-index: 2;
+             position: absolute;
+             transition-property: all;
+             transition-duration: 0.5s;
+             ">
+            {{ include('BeitechBundle:Default:logIn.html.twig', {
+
+            }) }}
+        </div>#}
+
+
+
+
+        {#
+                
+                <div id="uploadVideo"
+                     style="
+                     width: 350px;
+                     right: 0px;
+                     top: 0px;
+                     bottom: 0px;
+                     position: absolute;">
+                    {{ include('BeitechBundle:Default:uploadVideo.html.twig') }}
+                </div>
+                
+                <div id="donateToThisArtistForm"
+                     style="
+                     width: 300px;
+                     right: 0px;
+                     top: 0px;
+                     bottom: 0px;
+                     position: absolute;">
+                    {{ include('BeitechBundle:Default:donateThisArtist.html.twig') }}
+                </div>
+                
+                <div id="addToList"
+                     style="
+                     width: 300px;
+                     right: 0px;
+                     top: 0px;
+                     bottom: 0px;
+                     position: absolute;">
+                    {{ include('BeitechBundle:Default:addToList.html.twig') }}
+                </div>#}
+    </body>
+
+    <script>
+
+        {#        var allDocument = document.getElementById("chantaje");
+                allDocument.addEventListener("load", checkSession, false);#}
+
+        function checkSession()
+        {
+            var form = $('#check-sesion-ajax');
+            var url = form.attr('action');
+
+            $.post(url, function (data)
+            {
+                var sessionStatus = data[0].sessionStatus;
+                
+                if (sessionStatus === "0")
+                {
+{#                    alert("NO SE HA INICIADO SESIÓN");#}
+                    showCloseSession();
+                }
+                else
+                {
+{#                    alert("YA SE INICIÓ SESIÓN");#}
+                    showOpenSession();
+                }
+                
+            }).fail(function () {
+                alert('ERROR');
+            });
+        }
+
+        window.onload = checkSession;
+
+        function showOpenSession()
+        {
+            document.getElementById('profileFormLogOut').style.display = "none";
+            document.getElementById('uploadVideoFormLogOut').style.display = "none";
+            document.getElementById('donateToThisArtistFormLogOut').style.display = "none";
+            document.getElementById('addToListFormLogOut').style.display = "none";
+            document.getElementById('marketingAndPublicityFormLogOut').style.display = "none";
+            document.getElementById('informationFormLogOut').style.display = "none";
+            document.getElementById('commentFormLogOut').style.display = "none";
+            document.getElementById('newsFeedFormLogOut').style.display = "none";
+            
+            document.getElementById('profileFormLogIn').style.display = "block";
+            document.getElementById('uploadVideoFormLogIn').style.display = "block";
+            document.getElementById('donateToThisArtistFormLogIn').style.display = "block";
+            document.getElementById('addToListFormLogIn').style.display = "block";
+            document.getElementById('marketingAndPublicityFormLogIn').style.display = "block";
+            document.getElementById('informationFormLogIn').style.display = "block";
+            document.getElementById('commentFormLogIn').style.display = "block";
+            document.getElementById('newsFeedFormLogIn').style.display = "block";
+        }
+
+        function showCloseSession()
+        {
+            document.getElementById('profileFormLogOut').style.display = "block";
+            document.getElementById('uploadVideoFormLogOut').style.display = "block";
+            document.getElementById('donateToThisArtistFormLogOut').style.display = "block";
+            document.getElementById('addToListFormLogOut').style.display = "block";
+            document.getElementById('marketingAndPublicityFormLogOut').style.display = "block";
+            document.getElementById('informationFormLogOut').style.display = "block";
+            document.getElementById('commentFormLogOut').style.display = "block";
+            document.getElementById('newsFeedFormLogOut').style.display = "block";
+            
+            document.getElementById('profileFormLogIn').style.display = "none";
+            document.getElementById('uploadVideoFormLogIn').style.display = "none";
+            document.getElementById('donateToThisArtistFormLogIn').style.display = "none";
+            document.getElementById('addToListFormLogIn').style.display = "none";
+            document.getElementById('marketingAndPublicityFormLogIn').style.display = "none";
+            document.getElementById('informationFormLogIn').style.display = "none";
+            document.getElementById('commentFormLogIn').style.display = "none";
+            document.getElementById('newsFeedFormLogIn').style.display = "none";
+        }
+
+    </script>
+{% endblock %}

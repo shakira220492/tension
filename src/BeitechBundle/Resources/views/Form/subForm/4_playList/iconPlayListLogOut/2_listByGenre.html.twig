@@ -1,0 +1,25 @@
+<div id="listByGenreLogOutIcon"
+     class="moreMusicClass"
+     style="background-color: blue;
+     width: 70px;
+     height: 70px;
+     position: absolute;
+     top: 0px;
+     left: 140px;"
+     onclick="highlightListByGenreLogOut();">
+    LIST BY GENRE
+</div>
+<script>
+    function highlightListByGenreLogOut()
+    {
+        document.getElementById('listByArtistLogOutForm').style.opacity = 0;
+        document.getElementById("listByGenreLogOutForm").style.opacity = 0.9;
+        document.getElementById("listByDataMiningLogOutForm").style.opacity = 0;
+        document.getElementById("listByYouLogOutForm").style.opacity = 0;
+        
+        document.getElementById('listByArtistLogOutForm').style.zIndex = 0;
+        document.getElementById("listByGenreLogOutForm").style.zIndex = 1;
+        document.getElementById("listByDataMiningLogOutForm").style.zIndex = 0;
+        document.getElementById("listByYouLogOutForm").style.zIndex = 0;
+    }
+</script>

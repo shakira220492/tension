@@ -1,0 +1,114 @@
+<div id="keywordDiv"
+     style="
+     overflow: hidden;
+     {#background-color: red;#}
+     width: 100%;
+     height: 50px;">
+    <div id="listOne">
+        <div style='display:inline-block;'><input type='text' id='keyword1' name='keyword1' size='4'/></div>
+        <div style='display:inline-block;'><input type='text' id='keyword2' name='keyword2' size='4'/></div>
+        <div style='display:inline-block;'><input type='text' id='keyword3' name='keyword3' size='4'/></div>
+        <div style='display:inline-block;'><input type='text' id='keyword4' name='keyword4' size='4'/></div>
+        <div style='display:inline-block;'><input type='text' id='keyword5' name='keyword5' size='4'/></div>
+    </div>
+    <div id='listTwo'>
+    </div>
+</div>
+
+<div style="
+     position: absolute;
+     background-color: #017ebc;
+     height: 35px;
+     width: 35px;
+     right: 0px;
+     top: 0px;
+     "
+     onclick="addNewKeyword();">
+    +
+</div>
+
+<script>
+    var amountInput = 5;
+    function addNewKeyword()
+    {
+        amountInput += 1;
+
+        if (amountInput <= 30)
+        {
+            document.getElementById("listTwo").innerHTML = "<div style='display:inline-block;'><input type='text' id='keyword" + amountInput + "' name='keyword" + amountInput + "' size='4'/>&nbsp</div>";
+
+            var listOne = document.getElementById("listOne");
+            var listTwo = document.getElementById("listTwo");
+
+            var node = listTwo.lastChild;
+            listOne.appendChild(node);
+        }
+    }
+
+
+    function uploadKeywords(productId)
+    {
+        var amountEmptyInput = 0;
+        for (var i = 1; i <= amountInput; i++)
+        {
+            var currentKeywordId = document.getElementById('keyword' + i).value; //paso 1
+            if (!currentKeywordId) {
+                amountEmptyInput++;
+            }
+        }
+
+        if (amountEmptyInput === 0)
+        {
+            for (var i = 1; i <= amountInput; i++)
+            {
+                console.log("function upload keywords");
+                var form = $('#upload-keywords-ajax');
+                var url = form.attr('action');
+                
+                var currentKeywordId = document.getElementById('keyword' + i).value; //paso 1
+                
+                $.post(url, {currentKeywordId: currentKeywordId, productId: productId
+                }, function (result) {
+                    console.log("variable... " + result[0].variable);
+                }).fail(function () {
+                    alert('ERROR');
+                });
+            }
+        } else
+        {
+            alert("You need to introduce all information");
+        }
+    }
+
+    function uploadKeywords2(productId)
+    {
+        console.log("function upload keywords");
+        var form = $('#upload-keywords-ajax');
+        var url = form.attr('action');
+        var keywordOne = document.getElementById('keywordOne').value; // paso 1
+        var keywordTwo = document.getElementById('keywordTwo').value;
+        var keywordThree = document.getElementById('keywordThree').value;
+        var keywordFour = document.getElementById('keywordFour').value;
+        var keywordFive = document.getElementById('keywordFive').value;
+        if (!keywordOne || !keywordTwo || !keywordThree || !keywordFour || !keywordFive) {
+            alert("You need to introduce all information");
+        } else {
+            $.post(url, {keywordOne: keywordOne,
+                keywordTwo: keywordTwo,
+                keywordThree: keywordThree,
+                keywordFour: keywordFour,
+                keywordFive: keywordFive,
+                productId: productId
+            }, function (result) {
+                console.log("variable1... " + result[0].variable1);
+                console.log("variable2... " + result[0].variable2);
+                console.log("variable3... " + result[0].variable3);
+                console.log("variable4... " + result[0].variable4);
+                console.log("variable5... " + result[0].variable5);
+                result[0].variable;
+            }).fail(function () {
+                alert('ERROR');
+            });
+        }
+    }
+</script>
